@@ -10,15 +10,22 @@ public class LevelTiltController : MonoBehaviour {
 
     private Camera m_mainCamera;
 
+    private float m_xStart = 0.0f;
+    private float m_zStart = 0.0f;
+
     void Start()
     {
+        AccelerometerCalibration();
         m_mainCamera = Camera.main;
     }
 
     void Update()
     {
-        float tiltAroundZ = Input.GetAxis("Horizontal") * m_tiltAngle;
-        float tiltAroundX = Input.GetAxis("Vertical") * m_tiltAngle;
+        // float tiltAroundZ = Input.GetAxis("Horizontal") * m_tiltAngle;
+        // float tiltAroundX = Input.GetAxis("Vertical") * m_tiltAngle;
+
+        float tiltAroundZ = (Input.acceleration.z - m_zStart) * m_tiltAngle;
+        float tiltAroundX = (Input.acceleration.x - m_xStart) * m_tiltAngle;
 
         Transform cameraTransform = m_mainCamera.transform;
 
@@ -40,5 +47,11 @@ public class LevelTiltController : MonoBehaviour {
 
         // Interpolate towards the target rotation
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * m_smoothTilt);
+    }
+
+    void AccelerometerCalibration() 
+    {
+        m_xStart = Input.acceleration.x;
+        m_zStart = Input.acceleration.z;
     }
 }
