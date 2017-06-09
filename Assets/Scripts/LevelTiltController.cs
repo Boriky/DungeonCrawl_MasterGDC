@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelTiltController : MonoBehaviour {
-
+    public bool m_keyboardControls;
     // Smoothly tilts a transform towards a target rotation.
     public float m_smoothTilt = 3.0f;
     public float m_tiltAngle = 30.0f;
@@ -21,12 +21,18 @@ public class LevelTiltController : MonoBehaviour {
 
     void Update()
     {
-        // float tiltAroundZ = Input.GetAxis("Horizontal") * m_tiltAngle;
-        // float tiltAroundX = Input.GetAxis("Vertical") * m_tiltAngle;
-
-        float tiltAroundZ = (Input.acceleration.z /*- m_zStart*/) * m_tiltAngle;
-        float tiltAroundX = (Input.acceleration.y /*- m_xStart*/) * m_tiltAngle;
-
+        float tiltAroundZ;
+        float tiltAroundX;
+        if (m_keyboardControls)
+        {
+            tiltAroundZ = Input.GetAxis("Horizontal") * m_tiltAngle;
+            tiltAroundX = Input.GetAxis("Vertical") * m_tiltAngle;
+        }
+        else
+        {
+            tiltAroundZ = (Input.acceleration.z /*- m_zStart*/) * m_tiltAngle;
+            tiltAroundX = (Input.acceleration.y /*- m_xStart*/) * m_tiltAngle;
+        }
         Transform cameraTransform = m_mainCamera.transform;
 
         // Get the Z and X axes of the Camera
@@ -38,7 +44,7 @@ public class LevelTiltController : MonoBehaviour {
         cameraForwardProj.Normalize();
         Vector3 cameraRightProj = Vector3.ProjectOnPlane(cameraRight, Vector3.up);
         cameraRightProj.Normalize();
-
+        
         // Rotate the level based on the axes of the Camera
         Quaternion rotationAroundZ = Quaternion.AngleAxis(-tiltAroundZ, cameraForwardProj);
         Quaternion rotationAroundX = Quaternion.AngleAxis(tiltAroundX, cameraRightProj);

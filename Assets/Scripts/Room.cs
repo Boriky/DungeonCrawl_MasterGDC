@@ -12,11 +12,13 @@ public class Room : MonoBehaviour
     public RoomComponent[] roomComponentPrefabs;
     private RoomComponent[,] roomComponents;
 
+    private bool isGenerationOver;
     //TEMP
     private IntVector2 playerStartPosition;
 
     public IEnumerator Generate(IntVector2 doorPreviousCoordinates, Directions.Direction doorPreviousDirection)
     {
+        isGenerationOver = false;
         WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
         IntVector2 startPositionForGeneration;
         if (!IsInvalidRoomPosition(doorPreviousCoordinates))
@@ -37,9 +39,10 @@ public class Room : MonoBehaviour
 
         while (activeComponents.Count > 0)
         {
-            yield return delay;
+            yield return false;
             DoNextGenerationStep(activeComponents);
         }
+        isGenerationOver = true;
      }
 
     private void DoFirstGenerationStep(IntVector2 startPositionForGeneration, Directions.Direction doorPreviousDirection, List<RoomComponent> activeComponents)
@@ -150,5 +153,10 @@ public class Room : MonoBehaviour
             newRoomCoordinates = new IntVector2(-1,-1);
         }
         return newRoomCoordinates;
+    }
+
+    public bool getIsGenerationOver()
+    {
+        return isGenerationOver;
     }
 }

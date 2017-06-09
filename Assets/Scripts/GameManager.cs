@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour {
     private Room roomInstance;
     public Room roomPrefab;
 
+    public GameObject playerPrefab;
+    private GameObject playerInstance;
 	// Use this for initialization
 	void Start () {
         BeginGame();
@@ -13,8 +15,9 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (!playerInstance.activeSelf && roomInstance.getIsGenerationOver())
+            playerInstance.SetActive(true);
+    }
 
     void BeginGame()
     {   
@@ -23,6 +26,9 @@ public class GameManager : MonoBehaviour {
 
         //TEMP: get a reference to the door of the previous room and pass the coordinates of the adjacent tile
         //TEMP: random initial direction
-       StartCoroutine(roomInstance.Generate(new IntVector2(-1,-1), Directions.Direction.North));
+        StartCoroutine(roomInstance.Generate(new IntVector2(-1,-1), Directions.Direction.North));
+        playerInstance = Instantiate(playerPrefab);
+        playerInstance.SetActive(false);
+
     }
 }
