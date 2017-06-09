@@ -10,16 +10,19 @@ public class RoomComponent : MonoBehaviour {
     private int nonNullNeighbours;
     private int safeNeighbours;
     private IntVector2 coordinates;
-
+    private float xOffset;
+    private float zOffset;
     private RoomComponent[] neighbours = new RoomComponent[Directions.Count];
     private bool[] neighbourInitialized = new bool[Directions.Count];
 
-    public void Initialize(IntVector2 coordinates, Transform roomTransform)
+    public void Initialize(IntVector2 coordinates, Transform roomTransform, IntVector2 size)
     {
         this.coordinates = coordinates;
+        xOffset = (size.x * 9.0f) / 2 - 4.5f;
+        zOffset = (size.z * 9.0f) / 2;
         name = "Room Component " + coordinates.x + ", " + coordinates.z;
         transform.parent = roomTransform;
-        transform.localPosition = new Vector3(coordinates.x * 9.0f, 0f, coordinates.z * 9.0f + 4.5f);
+        transform.localPosition = new Vector3((coordinates.x * 9.0f) - xOffset, 0f, coordinates.z * 9.0f + 4.5f - zOffset);
     }
 
     public IntVector2 GetCoordinates()

@@ -49,7 +49,7 @@ public class Room : MonoBehaviour
     {
         RoomComponent firstComponent = InstantiateSafeComponent();
         roomComponents[startPositionForGeneration.x, startPositionForGeneration.z] = firstComponent;
-        firstComponent.Initialize(startPositionForGeneration, transform);
+        firstComponent.Initialize(startPositionForGeneration, transform, size);
 
         activeComponents.Add(firstComponent);
 
@@ -86,7 +86,7 @@ public class Room : MonoBehaviour
                 {
                     neighbour = Instantiate(roomComponentPrefabs[Random.Range(0, roomComponentPrefabs.Length)]) as RoomComponent;
                 }
-                neighbour.Initialize(newComponentCoordinates, transform);
+                neighbour.Initialize(newComponentCoordinates, transform, size);
                 roomComponents[newComponentCoordinates.x, newComponentCoordinates.z] = neighbour;
                 currentComponent.AddNeighbour(neighbour, direction);
                 neighbour.AddNeighbour(currentComponent, direction.GetOpposite());
