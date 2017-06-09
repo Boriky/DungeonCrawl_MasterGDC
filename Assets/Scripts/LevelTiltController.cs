@@ -24,8 +24,8 @@ public class LevelTiltController : MonoBehaviour {
         // float tiltAroundZ = Input.GetAxis("Horizontal") * m_tiltAngle;
         // float tiltAroundX = Input.GetAxis("Vertical") * m_tiltAngle;
 
-        float tiltAroundZ = (Input.acceleration.z - m_zStart) * m_tiltAngle;
-        float tiltAroundX = (Input.acceleration.x - m_xStart) * m_tiltAngle;
+        float tiltAroundZ = (Input.acceleration.z /*- m_zStart*/) * m_tiltAngle;
+        float tiltAroundX = (Input.acceleration.y /*- m_xStart*/) * m_tiltAngle;
 
         Transform cameraTransform = m_mainCamera.transform;
 
