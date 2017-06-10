@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelTiltController : MonoBehaviour {
+public class LevelTiltController : MonoBehaviour
+{
     public bool m_keyboardControls;
+    
     // Smoothly tilts a transform towards a target rotation.
     public float m_smoothTilt = 3.0f;
     public float m_tiltAngle = 30.0f;
 
     private Camera m_mainCamera;
 
-    private float m_xStart = 0.0f;
-    private float m_zStart = 0.0f;
+    // private float m_xStart = 0.0f;
+    // private float m_zStart = 0.0f;
 
     void Start()
     {
-        AccelerometerCalibration();
+        // AccelerometerCalibration();
         m_mainCamera = Camera.main;
     }
 
@@ -23,6 +25,7 @@ public class LevelTiltController : MonoBehaviour {
     {
         float tiltAroundZ;
         float tiltAroundX;
+
         if (m_keyboardControls)
         {
             tiltAroundZ = Input.GetAxis("Horizontal") * m_tiltAngle;
@@ -33,6 +36,7 @@ public class LevelTiltController : MonoBehaviour {
             tiltAroundZ = (Input.acceleration.z /*- m_zStart*/) * m_tiltAngle;
             tiltAroundX = (Input.acceleration.y /*- m_xStart*/) * m_tiltAngle;
         }
+
         Transform cameraTransform = m_mainCamera.transform;
 
         // Get the Z and X axes of the Camera
@@ -55,9 +59,9 @@ public class LevelTiltController : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * m_smoothTilt);
     }
 
-    void AccelerometerCalibration() 
+    /*void AccelerometerCalibration() 
     {
         m_xStart = Input.acceleration.x;
         m_zStart = Input.acceleration.z;
-    }
+    }*/
 }
