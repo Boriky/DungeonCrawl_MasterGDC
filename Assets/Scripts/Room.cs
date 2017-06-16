@@ -120,10 +120,6 @@ public class Room : MonoBehaviour
         return component;
     }
 
-    private void CreateNeighbour()
-    {
-
-    }
     private bool IsInvalidRoomPosition(IntVector2 position)
     {
         if (position.x < 0 || position.x >= size.x || position.z < 0 || position.z >= size.z)
@@ -158,5 +154,22 @@ public class Room : MonoBehaviour
     public bool getIsGenerationOver()
     {
         return isGenerationOver;
+    }
+
+    public IntVector2 getRandomRoomPosition()
+    {
+        RoomComponent component = roomComponents[Random.Range(0, size.x), Random.Range(0, size.z)];
+        IntVector2 positionInComponent = component.getRandomComponentPosition();
+
+        IntVector2 componentCoordinates = component.GetCoordinates();
+        int xCoordinate = componentCoordinates.x * component.size.x;
+        int zCoordinate = componentCoordinates.z * component.size.z;
+
+        return new IntVector2(xCoordinate + positionInComponent.x, zCoordinate + positionInComponent.z);
+    }
+
+    public float getHeight()
+    {
+        return roomComponents[0, 0].GetComponentInChildren<MeshRenderer>().bounds.size.y;
     }
 }

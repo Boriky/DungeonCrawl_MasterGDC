@@ -5,7 +5,7 @@ using UnityEngine;
 public class RoomComponent : MonoBehaviour {
 
     public bool safe;
-
+    public IntVector2 size;
     private int initializedNeighbourCount = 0;
     private int nonNullNeighbours;
     private int safeNeighbours;
@@ -15,11 +15,11 @@ public class RoomComponent : MonoBehaviour {
     private RoomComponent[] neighbours = new RoomComponent[Directions.Count];
     private bool[] neighbourInitialized = new bool[Directions.Count];
 
-    public void Initialize(IntVector2 coordinates, Transform roomTransform, IntVector2 size)
+    public void Initialize(IntVector2 coordinates, Transform roomTransform, IntVector2 roomSize)
     {
         this.coordinates = coordinates;
-        xOffset = (size.x * 9.0f) / 2 - 4.5f;
-        zOffset = (size.z * 9.0f) / 2;
+        xOffset = (roomSize.x * 9.0f) / 2 - 4.5f;
+        zOffset = (roomSize.z * 9.0f) / 2;
         name = "Room Component " + coordinates.x + ", " + coordinates.z;
         transform.parent = roomTransform;
         transform.localPosition = new Vector3((coordinates.x * 9.0f) - xOffset, 0f, coordinates.z * 9.0f + 4.5f - zOffset);
@@ -82,5 +82,12 @@ public class RoomComponent : MonoBehaviour {
             }
         }
         throw new System.InvalidOperationException("RoomComponent has no uninitialized directions left");
+    }
+
+    public IntVector2 getRandomComponentPosition()
+    {
+        int xPosition = Random.Range(0, size.x);
+        int zPosition = Random.Range(0, size.z);
+        return new IntVector2(xPosition, zPosition);
     }
 }
