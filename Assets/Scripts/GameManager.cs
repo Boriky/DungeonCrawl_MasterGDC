@@ -15,13 +15,15 @@ public class GameManager : MonoBehaviour
     private Enemy[] m_enemies = null;
     private bool m_enemiesInitialized = false;
 
+    private AIManager m_aiManager = null;
     // Use this for initialization
-    void Start()
+    void Awake()
     {
+        
         m_roomInstance = Instantiate(m_roomPrefab) as Room;
-        // TEMP: get a reference to the door of the previous room and pass the coordinates of the adjacent tile
-        // TEMP: random initial direction
-        StartCoroutine(m_roomInstance.Generate(new IntVector2(-1, -1), Directions.Direction.North, SpawnCharacters));
+        m_roomInstance.Generate(new IntVector2(-1, -1), Directions.Direction.North);
+
+        SpawnCharacters();
 
     }
 

@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-
-    public float generationStepDelay;
-
     public IntVector2 size;
 
     public RoomComponent[] roomComponentPrefabs;
@@ -17,10 +14,9 @@ public class Room : MonoBehaviour
     //TEMP
     private IntVector2 playerStartPosition;
 
-    public IEnumerator Generate(IntVector2 doorPreviousCoordinates, Directions.Direction doorPreviousDirection, Action i_Callback)
+    public void Generate(IntVector2 doorPreviousCoordinates, Directions.Direction doorPreviousDirection)
     {
-        isGenerationOver = false;
-        WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
+
         IntVector2 startPositionForGeneration;
         if (!IsInvalidRoomPosition(doorPreviousCoordinates))
         {
@@ -40,13 +36,9 @@ public class Room : MonoBehaviour
 
         while (activeComponents.Count > 0)
         {
-            yield return false;
             DoNextGenerationStep(activeComponents);
         }
-        if (i_Callback != null)
-        {
-            i_Callback();
-        }
+
      }
 
     private void DoFirstGenerationStep(IntVector2 startPositionForGeneration, Directions.Direction doorPreviousDirection, List<RoomComponent> activeComponents)
