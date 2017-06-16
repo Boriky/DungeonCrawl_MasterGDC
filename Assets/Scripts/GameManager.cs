@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(m_roomInstance.Generate(new IntVector2(-1, -1), Directions.Direction.North));
 
         m_playerInstance = Instantiate(m_playerPrefab);
-        //m_playerInstance.transform.parent = m_roomInstance.transform;
+        m_playerInstance.transform.parent = m_roomInstance.transform;
         m_playerInstance.SetActive(false);
         m_enemies = new Enemy[ENEMY_NUMBER];
     }
