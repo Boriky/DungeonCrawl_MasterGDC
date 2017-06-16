@@ -140,7 +140,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_damagePerHit: 20
-  m_activePowerups: []
 --- !u!135 &135487604241866038
 SphereCollider:
   m_ObjectHideFlags: 1

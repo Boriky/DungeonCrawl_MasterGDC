@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 65009268676454100}
   - component: {fileID: 23053678942649042}
   - component: {fileID: 114513381702814530}
+  - component: {fileID: 114164028177844712}
+  - component: {fileID: 114466721783403116}
   m_Layer: 0
   m_Name: BasicEnemy
   m_TagString: Untagged
@@ -39,7 +41,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4692633245598208}
   - component: {fileID: 65565911211714052}
-  - component: {fileID: 114840239899302376}
   m_Layer: 0
   m_Name: TopCollider
   m_TagString: Enemy
@@ -104,7 +105,6 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33204269805460056
 MeshFilter:
@@ -137,6 +137,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114164028177844712
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241461989511854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a10304d5782dc479a97dca3ddf495b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_startingHealth: 100
+  m_currentHealth: 0
+  m_sinkSpeed: 2.5
+  m_scoreValue: 10
+--- !u!114 &114466721783403116
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241461989511854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f586c3e78a2ace40bd2059f6fc59329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_damagePerHit: 10
 --- !u!114 &114513381702814530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -148,15 +175,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af58bdd42472fb849a9e246044c76ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114840239899302376
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1857396612060260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 406fe28ee1920d445834ae0503a6f216, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_moveHere: 1

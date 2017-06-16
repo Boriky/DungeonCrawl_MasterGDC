@@ -71,6 +71,4 @@ MonoBehaviour:
     x: 5
     z: 5
   roomComponentPrefabs:
-  - {fileID: 114345503316534964, guid: 7db6c984549fb3947b97b4d02faddf6b, type: 2}
   - {fileID: 114205699658667340, guid: 043e92fe5f6546f4ea90da7ea2d69e21, type: 2}
-  - {fileID: 114790194098304698, guid: 7fc347d87b222cd41bd5614209e4cb47, type: 2}
