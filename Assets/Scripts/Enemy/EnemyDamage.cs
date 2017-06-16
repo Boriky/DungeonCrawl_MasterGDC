@@ -26,7 +26,7 @@ public class EnemyDamage : MonoBehaviour
     {
         GameObject collisionObject = collision.gameObject;
 
-        if (m_collidableMask == collisionObject.layer)
+        if ("Player" == collisionObject.tag)
         {
             PlayerHealth playerHealth = collisionObject.GetComponent<PlayerHealth>();
 

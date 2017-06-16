@@ -29,12 +29,13 @@ public class PlayerDamage : MonoBehaviour
     {
         GameObject collisionObject = collision.gameObject;
 
-        if (m_collidableMask == collisionObject.layer)
+        if ("Enemy" == collisionObject.tag)
         {
-            EnemyHealth enemyHealth = collisionObject.GetComponent<EnemyHealth>();
-
+            EnemyHealth enemyHealth = collisionObject.GetComponentInParent<EnemyHealth>();
+            Debug.Log("Hitted");
             if (enemyHealth != null)
             {
+                Debug.Log("TakeDamage");
                 enemyHealth.TakeDamage(m_damagePerHit);
             }
         }
