@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     {
         m_playerInstance = Instantiate(m_playerPrefab);
         m_playerInstance.transform.parent = m_roomInstance.transform;
+        m_playerInstance.GetComponent<PlayerHealth>().m_onDeathEvent += onPlayerDeath;
     }
 
     void EnemiesSpawn()
@@ -51,6 +52,17 @@ public class GameManager : MonoBehaviour
             enemy.Initialize(position, m_roomInstance.transform);
             enemy.GetComponent<EnemyHealth>().m_onDeathEvent += OnEnemyDeath;
             m_enemies[enemyIndex] = enemy;
+        }
+    }
+
+    private void onPlayerDeath(PlayerHealth i_Listener)
+    {
+        if (i_Listener != null)
+        {
+            // Destroy GameObject
+                // Particles etc
+            // GameOver
+            // Ask for Game Restart
         }
     }
 

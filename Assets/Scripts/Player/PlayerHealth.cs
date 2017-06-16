@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void OnPlayerDeathDelegate(PlayerHealth i_Listener);
+
 public class PlayerHealth : MonoBehaviour
 {
     // Health data
@@ -12,6 +14,8 @@ public class PlayerHealth : MonoBehaviour
     public Color m_flashColor = new Color(1f, 0f, 0f, 0.1f);
     // Death indicator
     public AudioClip m_deathClip = null;
+
+    public OnPlayerDeathDelegate m_onDeathEvent = null;
 
     private bool m_isDamageable = true;
     private bool m_isDead = false;
@@ -66,5 +70,7 @@ public class PlayerHealth : MonoBehaviour
         m_playerAudio.Play();
 
         m_rigidBody.isKinematic = true;
+
+        m_onDeathEvent(this);
     }
 }
