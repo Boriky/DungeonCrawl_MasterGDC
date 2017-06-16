@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     
     private Room m_roomInstance = null;
     private GameObject m_playerInstance = null;
-    private Enemy[] m_enemies;
-    private bool enemiesInitialized = false;
+    private Enemy[] m_enemies = null;
+    private bool m_enemiesInitialized = false;
 
     // Use this for initialization
     void Start()
@@ -21,45 +21,38 @@ public class GameManager : MonoBehaviour
         m_roomInstance = Instantiate(m_roomPrefab) as Room;
         // TEMP: get a reference to the door of the previous room and pass the coordinates of the adjacent tile
         // TEMP: random initial direction
-        StartCoroutine(m_roomInstance.Generate(new IntVector2(-1, -1), Directions.Direction.North));
+        StartCoroutine(m_roomInstance.Generate(new IntVector2(-1, -1), Directions.Direction.North, SpawnCharacters));
 
-        m_playerInstance = Instantiate(m_playerPrefab);
-        m_playerInstance.transform.parent = m_roomInstance.transform;
-        m_playerInstance.SetActive(false);
-        m_enemies = new Enemy[ENEMY_NUMBER];
     }
 
-    Enemy EnemySpawn()
+    private void SpawnCharacters()
     {
-        Enemy enemy = Instantiate(m_enemyPrefabs[Random.Range(0, m_enemyPrefabs.Length)]);
-        IntVector2 position = m_roomInstance.getRandomRoomPosition();
-        float roomY = m_roomInstance.getHeight();
-        enemy.Initialize(roomY, position);
+        PlayerSpawn();
 
-        return enemy;
+        m_enemies = new Enemy[ENEMY_NUMBER];
+        EnemiesSpawn();
+
+    }
+
+    void PlayerSpawn()
+    {
+        m_playerInstance = Instantiate(m_playerPrefab);
+        m_playerInstance.transform.parent = m_roomInstance.transform;
+    }
+
+    void EnemiesSpawn()
+    {
+        for (int enemyIndex = 0; enemyIndex < m_enemies.Length - 1; ++enemyIndex)
+        {
+            Enemy enemy = Instantiate(m_enemyPrefabs[Random.Range(0, m_enemyPrefabs.Length)]);
+            Vector3 position = m_roomInstance.getSpawningPosition();
+            enemy.Initialize(position, m_roomInstance.transform);
+            m_enemies[enemyIndex] = enemy;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Activate player when the level has been generated
-        if (!m_playerInstance.activeSelf && m_roomInstance.getIsGenerationOver())
-        {
-            m_playerInstance.SetActive(true);
-        }
-
-        if (!enemiesInitialized && m_roomInstance.getIsGenerationOver())
-        {
-            for (int enemyIndex = 0; enemyIndex < m_enemies.Length - 1; ++enemyIndex)
-            {
-                Enemy enemy = EnemySpawn();
-                m_enemies[enemyIndex] = enemy;
-            }
-            enemiesInitialized = true;
-        }
-
-        // the player has been killed
-        // destroy the player
-        // game ends
     }
 }

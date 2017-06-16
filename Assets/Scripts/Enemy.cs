@@ -6,11 +6,11 @@ public class Enemy : MonoBehaviour {
     
     //private float yOffset = 0.8f;
 
-    public void Initialize(float roomY, IntVector2 position)
+    public void Initialize(Vector3 position, Transform levelTransform)
     {
         float yOffset = this.GetComponent<BoxCollider>().bounds.size.y/2;
         name = "Enemy " + position.x + " " + position.z;
-        //transform.parent = roomTransform;
-        transform.localPosition = new Vector3(position.x, roomY+yOffset, position.z);
+        transform.parent = levelTransform;
+        transform.localPosition = new Vector3(position.x, position.y+yOffset, position.z);
     }
 }

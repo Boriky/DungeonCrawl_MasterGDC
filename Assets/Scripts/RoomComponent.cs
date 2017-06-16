@@ -30,6 +30,11 @@ public class RoomComponent : MonoBehaviour {
         return this.coordinates;
     }
 
+    public Vector3 GetPosition()
+    {
+        return transform.localPosition;
+    }
+
     public bool IsNeighbourAlreadyInitialized(Directions.Direction direction)
     {
         return neighbourInitialized[(int)direction];
