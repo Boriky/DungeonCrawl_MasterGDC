@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public class Room : MonoBehaviour
     //TEMP
     private IntVector2 playerStartPosition;
 
-    public IEnumerator Generate(IntVector2 doorPreviousCoordinates, Directions.Direction doorPreviousDirection)
+    public IEnumerator Generate(IntVector2 doorPreviousCoordinates, Directions.Direction doorPreviousDirection, Action i_Callback)
     {
         isGenerationOver = false;
         WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
@@ -27,7 +28,7 @@ public class Room : MonoBehaviour
             playerStartPosition = ConvertToNewRoomCoordinates(doorPreviousCoordinates, doorPreviousDirection);
         } else
         {
-            playerStartPosition = new IntVector2(0, Random.Range(0, size.z));
+            playerStartPosition = new IntVector2(0, UnityEngine.Random.Range(0, size.z));
         }
 
         startPositionForGeneration = playerStartPosition;
@@ -42,7 +43,10 @@ public class Room : MonoBehaviour
             yield return false;
             DoNextGenerationStep(activeComponents);
         }
-        isGenerationOver = true;
+        if (i_Callback != null)
+        {
+            i_Callback();
+        }
      }
 
     private void DoFirstGenerationStep(IntVector2 startPositionForGeneration, Directions.Direction doorPreviousDirection, List<RoomComponent> activeComponents)
@@ -84,7 +88,7 @@ public class Room : MonoBehaviour
                 }
                 else
                 {
-                    neighbour = Instantiate(roomComponentPrefabs[Random.Range(0, roomComponentPrefabs.Length)]) as RoomComponent;
+                    neighbour = Instantiate(roomComponentPrefabs[UnityEngine.Random.Range(0, roomComponentPrefabs.Length)]) as RoomComponent;
                 }
                 neighbour.Initialize(newComponentCoordinates, transform, size);
                 roomComponents[newComponentCoordinates.x, newComponentCoordinates.z] = neighbour;
@@ -110,11 +114,11 @@ public class Room : MonoBehaviour
 
     private RoomComponent InstantiateSafeComponent()
     {
-        int randomPrefabIndex = Random.Range(0, roomComponentPrefabs.Length);
+        int randomPrefabIndex = UnityEngine.Random.Range(0, roomComponentPrefabs.Length);
         //make sure we instantiate a safe component
         while (!roomComponentPrefabs[randomPrefabIndex].safe)
         {
-            randomPrefabIndex = Random.Range(0, roomComponentPrefabs.Length);
+            randomPrefabIndex = UnityEngine.Random.Range(0, roomComponentPrefabs.Length);
         }
         RoomComponent component = Instantiate(roomComponentPrefabs[randomPrefabIndex]) as RoomComponent;
         return component;
@@ -156,20 +160,21 @@ public class Room : MonoBehaviour
         return isGenerationOver;
     }
 
-    public IntVector2 getRandomRoomPosition()
+    public Vector3 getSpawningPosition()
     {
-        RoomComponent component = roomComponents[Random.Range(0, size.x), Random.Range(0, size.z)];
+        RoomComponent component = roomComponents[UnityEngine.Random.Range(0, size.x), UnityEngine.Random.Range(0, size.z)];
         IntVector2 positionInComponent = component.getRandomComponentPosition();
 
-        IntVector2 componentCoordinates = component.GetCoordinates();
-        int xCoordinate = componentCoordinates.x * component.size.x;
-        int zCoordinate = componentCoordinates.z * component.size.z;
+        Vector3 componentCoordinates = component.GetPosition();
+        float xCoordinate = componentCoordinates.x;
+        float yCoordinate = getHeight(component);
+        float zCoordinate = componentCoordinates.z;
 
-        return new IntVector2(xCoordinate + positionInComponent.x, zCoordinate + positionInComponent.z);
+        return new Vector3(xCoordinate + positionInComponent.x, yCoordinate, zCoordinate + positionInComponent.z);
     }
 
-    public float getHeight()
+    public float getHeight(RoomComponent component)
     {
-        return roomComponents[0, 0].GetComponentInChildren<MeshRenderer>().bounds.size.y;
+        return component.GetComponentInChildren<MeshRenderer>().bounds.size.y;
     }
 }
