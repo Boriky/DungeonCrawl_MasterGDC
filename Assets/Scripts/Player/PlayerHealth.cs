@@ -12,11 +12,14 @@ public class PlayerHealth : MonoBehaviour
     private bool m_isDead = false;
     private bool m_damaged = false;
     private Material m_playerMaterial = null;
+    private Rigidbody m_rigidBody = null;
+
 	// Use this for initialization
 	void Awake ()
     {
-        m_playerMaterial = GetComponent<Material>();
         m_currentHealth = m_startingHealth;
+        m_playerMaterial = GetComponent<Material>();
+        m_rigidBody = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -33,7 +36,7 @@ public class PlayerHealth : MonoBehaviour
         m_damaged = false;
 	}
 
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage (int damageAmount)
     {
         m_damaged = true;
 
@@ -41,7 +44,14 @@ public class PlayerHealth : MonoBehaviour
 
         if (m_currentHealth <= 0 && !m_isDead)
         {
-            m_isDead = true;
+            Death();
         }
+    }
+
+    void Death ()
+    {
+        m_isDead = true;
+
+        m_rigidBody.isKinematic = true;
     }
 }
