@@ -49,7 +49,16 @@ public class GameManager : MonoBehaviour
             Enemy enemy = Instantiate(m_enemyPrefabs[Random.Range(0, m_enemyPrefabs.Length)]);
             Vector3 position = m_roomInstance.getSpawningPosition();
             enemy.Initialize(position, m_roomInstance.transform);
+            enemy.GetComponent<EnemyHealth>().m_onDeathEvent += OnEnemyDeath;
             m_enemies[enemyIndex] = enemy;
+        }
+    }
+
+    private void OnEnemyDeath(EnemyHealth i_Listener)
+    {
+        if (i_Listener != null)
+        {
+            Destroy(i_Listener.gameObject);
         }
     }
 

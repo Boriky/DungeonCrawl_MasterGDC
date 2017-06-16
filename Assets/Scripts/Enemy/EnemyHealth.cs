@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void OnDeathDelegate(EnemyHealth i_Listener);
+public delegate void OnLifeChangedDelegate(float i_Prev, float i_New);
+
 public class EnemyHealth : MonoBehaviour
 {
     public int m_startingHealth = 100;
     public int m_currentHealth;
     public float m_sinkSpeed = 2.5f;
     public int m_scoreValue = 10;
+
+    public OnDeathDelegate m_onDeathEvent = null;
+    public OnLifeChangedDelegate m_onLifeChangedEvent = null;
 
     private ParticleSystem hitParticles = null;
     private BoxCollider m_boxCollider = null;
@@ -42,6 +48,7 @@ public class EnemyHealth : MonoBehaviour
         {
             isDead = true;
             m_boxCollider.isTrigger = true;
+            m_onDeathEvent(this);
         }
     }
 }
