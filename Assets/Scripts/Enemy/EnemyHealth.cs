@@ -6,8 +6,8 @@ public class EnemyHealth : MonoBehaviour
 {
     public int m_startingHealth = 100;
     public int m_currentHealth;
-    public float sinkSpeed = 2.5f;
-    public int scoreValue = 10;
+    public float m_sinkSpeed = 2.5f;
+    public int m_scoreValue = 10;
 
     private ParticleSystem hitParticles = null;
     private BoxCollider m_boxCollider = null;
@@ -27,7 +27,7 @@ public class EnemyHealth : MonoBehaviour
     {
 		if (isSinking)
         {
-            transform.Translate(-Vector3.up * sinkSpeed * Time.deltaTime);
+            transform.Translate(-Vector3.up * m_sinkSpeed * Time.deltaTime);
         }
 	}
 

@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerDamage : MonoBehaviour
 {
     public int m_damagePerHit = 20;
-    // public int m_speed ; // modifiers of gravity
     //public List<Ability> m_activePowerups = null;
 
     private int m_collidableMask = 0;
@@ -25,4 +24,19 @@ public class PlayerDamage : MonoBehaviour
     {
 	    	
 	}
+
+    void OnCollisionEnter(Collision collision)
+    {
+        GameObject collisionObject = collision.gameObject;
+
+        if (m_collidableMask == collisionObject.layer)
+        {
+            EnemyHealth enemyHealth = collisionObject.GetComponent<EnemyHealth>();
+
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(m_damagePerHit);
+            }
+        }
+    }
 }
