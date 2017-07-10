@@ -5,6 +5,7 @@ using UnityEngine;
 public class RollOver : Ability {
 
     public float m_force = 5.0f;
+    public bool m_keyboardControls = true;
 
     private Rigidbody m_playerRb = null;
 
@@ -13,17 +14,29 @@ public class RollOver : Ability {
     {
         m_playerRb = GetComponent<Rigidbody>();
     }
-
-    void Start()
-    {
-    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-	    if (Input.GetKeyDown(KeyCode.Alpha1))
+        float zAxis;
+        float xAxis;
+
+        if (m_keyboardControls)
         {
-            m_playerRb.AddForce(m_playerRb.velocity * m_force, ForceMode.Impulse);
+            zAxis = Input.GetAxis("Vertical");
+            xAxis = Input.GetAxis("Horizontal");
+        }
+        else
+        {
+            zAxis = (Input.acceleration.z /*- m_zStart*/);
+            xAxis = (Input.acceleration.y /*- m_xStart*/);
+        }
+
+        Vector3 movementDirection = new Vector3(xAxis, 0, zAxis);
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            m_playerRb.AddForce(movementDirection * m_force, ForceMode.VelocityChange);
         }
 	}
 }

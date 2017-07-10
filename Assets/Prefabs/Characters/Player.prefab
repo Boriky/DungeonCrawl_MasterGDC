@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 135487604241866038}
   - component: {fileID: 23791510495048420}
   - component: {fileID: 54381433027844400}
-  - component: {fileID: 114454720014913440}
-  - component: {fileID: 114941758154081538}
   - component: {fileID: 114344043720253090}
+  - component: {fileID: 114941758154081538}
+  - component: {fileID: 114970501551421252}
   - component: {fileID: 114678319410276184}
   m_Layer: 0
   m_Name: Player
@@ -77,6 +77,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33534112103968158
 MeshFilter:
@@ -116,19 +117,6 @@ MonoBehaviour:
   m_flashSpeed: 5
   m_flashColor: {r: 1, g: 0, b: 0, a: 0.1}
   m_deathClip: {fileID: 0}
---- !u!114 &114454720014913440
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1873301602566498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a217d0d3269e0314c937842a28d30554, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_force: 8
-  m_rayLenght: 0.6
 --- !u!114 &114678319410276184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -140,7 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0359e4a392fd1654796511c0884ace9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_force: 5
+  m_force: 15
+  m_keyboardControls: 1
 --- !u!114 &114941758154081538
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -153,6 +142,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_damagePerHit: 20
+--- !u!114 &114970501551421252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1873301602566498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90bf14477cb0a1a4b890026a62b48807, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_force: 8
+  m_force2: 20
+  m_rayLenght: 0.6
 --- !u!135 &135487604241866038
 SphereCollider:
   m_ObjectHideFlags: 1

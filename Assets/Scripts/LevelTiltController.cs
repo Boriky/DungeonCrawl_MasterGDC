@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelTiltController : MonoBehaviour
 {
-    public bool m_keyboardControls;
+    public bool m_keyboardControls = true;
     
     // Smoothly tilts a transform towards a target rotation.
     public float m_smoothTilt = 3.0f;
