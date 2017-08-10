@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Jump : Ability
 {
-    public float m_force = 5.0f;
-    public float m_force2 = 20.0f;
-    public float m_rayLenght = 0.6f;
+    [Header("Gameplay values")]
+    [SerializeField] float m_force = 5.0f;
+    [SerializeField] float m_force2 = 20.0f;
+    [SerializeField] float m_rayLenght = 0.6f;
 
     private Rigidbody m_playerRb = null;
     private static Vector3 s_rayDirection = Vector3.down;

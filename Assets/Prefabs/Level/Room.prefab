@@ -53,8 +53,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_keyboardControls: 1
-  m_smoothTilt: 5
-  m_tiltAngle: 15
+  m_smoothTilt: 4
+  m_tiltAngle: 6
+  m_movementDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &114631039901530244
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -66,7 +67,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f92ed2474bc9d245af3c4f7bd40011b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generationStepDelay: 0
   size:
     x: 5
     z: 5

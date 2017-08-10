@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PlayerDamage : MonoBehaviour
 {
-    public int m_damagePerHit = 20;
+    [Header("Gameplay values")]
+    [SerializeField] int m_damagePerHit = 20;
     //public List<Ability> m_activePowerups = null;
 
     private int m_collidableMask = 0;
-    ParticleSystem m_hitParticles = null;
-    AudioSource m_hitAudio = null;
+    private ParticleSystem m_hitParticles = null;
+    private AudioSource m_hitAudio = null;
 
 	// Use this for initialization
 	void Awake ()
@@ -18,24 +19,17 @@ public class PlayerDamage : MonoBehaviour
         m_hitParticles = GetComponent<ParticleSystem>();
         m_hitAudio = GetComponent<AudioSource>();
     }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-	    	
-	}
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision col)
     {
-        GameObject collisionObject = collision.gameObject;
+        GameObject hit = col.gameObject;
 
-        if ("Enemy" == collisionObject.tag)
+        if ("Enemy" == hit.tag)
         {
-            EnemyHealth enemyHealth = collisionObject.GetComponentInParent<EnemyHealth>();
-            Debug.Log("Hitted");
+            // TopCollider aka "Enemy" tag is child of BasicEnemy aka "Shield" tag
+            EnemyHealth enemyHealth = hit.GetComponentInParent<EnemyHealth>();
             if (enemyHealth != null)
             {
-                Debug.Log("TakeDamage");
                 enemyHealth.TakeDamage(m_damagePerHit);
             }
         }

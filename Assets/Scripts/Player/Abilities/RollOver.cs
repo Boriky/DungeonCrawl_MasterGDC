@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RollOver : Ability {
-
-    public float m_force = 5.0f;
-    public bool m_keyboardControls = true;
+public class RollOver : Ability
+{
+    [Header("Gameplay values")]
+    [SerializeField] float m_force = 5.0f;
+    [SerializeField] bool m_keyboardControls = true;
 
     private Rigidbody m_playerRb = null;
 

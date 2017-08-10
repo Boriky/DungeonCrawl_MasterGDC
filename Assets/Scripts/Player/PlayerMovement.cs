@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement Modifiers")]
+    //[Header("Movement Modifiers")]
     //public int speed = 0;
 
     [Header("Jump Behaviours")]
-    public float m_force = 5f;
-    public float m_rayLenght = 0.6f;
+    [SerializeField] float m_force = 5f;
+    [SerializeField] float m_rayLenght = 0.6f;
 
     private Rigidbody m_playerRb = null;
     private static Vector3 s_rayDirection = Vector3.down;
@@ -27,9 +27,6 @@ public class PlayerMovement : MonoBehaviour
         // Check if the raycast intersects with anything in its lenght
         if (Physics.Raycast(transform.position, s_rayDirection, out hit, m_rayLenght))
         {
-            if (hit.collider.tag == "Floor") { 
-                Debug.Log("Raycast");
-            }
             // Check if the raycast is hitting the floor and execute che jump command
             if (hit.collider.tag == "Floor" && Input.GetKeyDown(KeyCode.Space))
             {

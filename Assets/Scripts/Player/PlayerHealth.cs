@@ -6,15 +6,18 @@ public delegate void OnPlayerDeathDelegate(PlayerHealth i_Listener);
 
 public class PlayerHealth : MonoBehaviour
 {
-    // Health data
-    public int m_startingHealth = 100;
-    public int m_currentHealth = 0;
-    // Damage indicator
-    public float m_flashSpeed = 5f;
-    public Color m_flashColor = new Color(1f, 0f, 0f, 0.1f);
-    // Death indicator
-    public AudioClip m_deathClip = null;
+    [Header("Gameplay values")]
+    [SerializeField] int m_startingHealth = 100;
+    [SerializeField] int m_currentHealth = 0;
 
+    [Header("Damage indicators")]
+    [SerializeField] float m_flashSpeed = 5f;
+    [SerializeField] Color m_flashColor = new Color(1f, 0f, 0f, 0.1f);
+
+    [Header("Death indicator")]
+    [SerializeField] AudioClip m_deathClip = null;
+
+    // death delegate for game manager
     public OnPlayerDeathDelegate m_onDeathEvent = null;
 
     private bool m_isDamageable = true;
@@ -47,13 +50,17 @@ public class PlayerHealth : MonoBehaviour
         m_damaged = false;
 	}
 
-    public void TakeDamage (int damageAmount)
+    /// <summary>
+    /// Player takes damage for damageAmount; if health drops below zero, death event is called
+    /// </summary>
+    /// <param name="i_damageAmount"></param>
+    public void TakeDamage (int i_damageAmount)
     {
         if (m_isDamageable)
         {
             m_damaged = true;
 
-            m_currentHealth -= damageAmount;
+            m_currentHealth -= i_damageAmount;
 
             if (m_currentHealth <= 0 && !m_isDead)
             {
@@ -62,6 +69,9 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Manages player death event
+    /// </summary>
     void Death ()
     {
         m_isDead = true;

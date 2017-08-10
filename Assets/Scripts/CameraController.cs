@@ -4,20 +4,15 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float cameraSpeed = 20.0f;
+    [SerializeField] float cameraSpeed = 20.0f;
 
     private GameObject m_player;
-    private Vector3 m_offset;
+    //private Vector3 m_offset;
 
     void Awake()
     {
         m_player = GameObject.FindWithTag("Player");
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-        m_offset = transform.position - m_player.transform.position;
+        //m_offset = transform.position - m_player.transform.position;
     }
 
     // Called after the position of the player has been processed during the Update

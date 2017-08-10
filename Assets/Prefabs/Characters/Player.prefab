@@ -27,6 +27,8 @@ GameObject:
   - component: {fileID: 114941758154081538}
   - component: {fileID: 114970501551421252}
   - component: {fileID: 114678319410276184}
+  - component: {fileID: 114015932368717504}
+  - component: {fileID: 114206522300016476}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -101,6 +103,53 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114015932368717504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1873301602566498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2182f07603d68be4884a26369cfcf0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_projectile: {fileID: 1828929024661246, guid: fbf37e9aadb8baa42a8c750ee8bc47c2,
+    type: 2}
+  m_bulletVelocity: 15
+  m_keyboardControls: 1
+--- !u!114 &114206522300016476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1873301602566498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 977cd2113f57dcc41a09bdf32e1c25b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_projectile: {fileID: 1828929024661246, guid: fbf37e9aadb8baa42a8c750ee8bc47c2,
+    type: 2}
+  m_bulletVelocity: 20
+  bulletsPositions:
+  - {x: 1.5, y: 0, z: 0}
+  - {x: -1.5, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1.5}
+  - {x: 0, y: 0, z: -1.5}
+  - {x: -1, y: 0, z: 1}
+  - {x: -1, y: 0, z: -1}
+  - {x: 1, y: 0, z: 1}
+  - {x: 1, y: 0, z: -1}
+  bulletsYRotations:
+  - 90
+  - -90
+  - 0
+  - 180
+  - -45
+  - -135
+  - 45
+  - 135
 --- !u!114 &114344043720253090
 MonoBehaviour:
   m_ObjectHideFlags: 1

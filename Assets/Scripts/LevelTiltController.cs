@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class LevelTiltController : MonoBehaviour
 {
-    public bool m_keyboardControls = true;
-    
-    // Smoothly tilts a transform towards a target rotation.
-    public float m_smoothTilt = 3.0f;
-    public float m_tiltAngle = 30.0f;
+    [Header("Gameplay values")]
+    [SerializeField] bool m_keyboardControls = true;
+    [SerializeField] float m_smoothTilt = 3.0f;
+    [SerializeField] float m_tiltAngle = 30.0f;
 
     private Camera m_mainCamera = null;
-    public Vector3 m_movementDirection = Vector3.zero;
+    
     // private float m_xStart = 0.0f;
     // private float m_zStart = 0.0f;
 

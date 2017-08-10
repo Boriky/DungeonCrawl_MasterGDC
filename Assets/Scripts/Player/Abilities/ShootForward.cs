@@ -4,16 +4,32 @@ using UnityEngine;
 
 public class ShootForward : Ability
 {
-    public bool m_keyboardControls = true;
-    public float m_force = 50.0f;
-    public GameObject m_projectile = null;
-	
-	// Update is called once per frame
-	void FixedUpdate ()
-    {
-        float zAxis;
-        float xAxis;
+    [Header("Prefabs")]
+    [SerializeField] GameObject m_projectile = null;
 
+    [Header("Gameplay Values")]
+    [SerializeField] float m_bulletVelocity = 10.0f;
+    [SerializeField] bool m_keyboardControls = true;
+
+    private float zAxis = 0.0f;
+    private float xAxis = 0.0f;
+
+    // Update is called once per frame
+    void Update ()
+    {
+        SetAxis();
+
+        if ((zAxis != 0 || xAxis != 0) && Input.GetKeyDown(KeyCode.F))
+        {
+            FireProjectile();
+        }
+    }
+
+    /// <summary>
+    /// Set input axis
+    /// </summary>
+    void SetAxis()
+    {
         if (m_keyboardControls)
         {
             zAxis = Input.GetAxis("Vertical");
@@ -24,14 +40,14 @@ public class ShootForward : Ability
             zAxis = (Input.acceleration.z /*- m_zStart*/);
             xAxis = (Input.acceleration.y /*- m_xStart*/);
         }
-
-        if ((zAxis != 0 || xAxis != 0) && Input.GetKeyDown(KeyCode.F))
-        {
-            FireProjectile(zAxis, xAxis);
-        }
     }
 
-    void FireProjectile(float zAxis, float xAxis)
+    /// <summary>
+    /// Instantiate a projectile as children of "Room", force a velocity on the projectile and start the TimedExplosion coroutine on it
+    /// </summary>
+    /// <param name="i_zAxis"></param>
+    /// <param name="i_xAxis"></param>
+    void FireProjectile()
     {
         Vector3 movementDirection = new Vector3(xAxis, 0, zAxis);
 
@@ -58,9 +74,14 @@ public class ShootForward : Ability
 
         Vector3 spawnLocation = new Vector3(transform.position.x + xOffset, transform.position.y, transform.position.z + zOffset);
 
-        GameObject projectile = Instantiate(m_projectile, spawnLocation, Quaternion.identity);
-        projectile.transform.parent = GameObject.Find("Room(Clone)").transform;
-        Rigidbody projRb = projectile.GetComponent<Rigidbody>();
-        projRb.velocity = movementDirection * m_force;
+        GameObject projInstance = Instantiate(m_projectile, spawnLocation, Quaternion.identity);
+        Transform projTransform = projInstance.transform;
+        projTransform.parent = GameObject.Find("Room(Clone)").transform;
+
+        Rigidbody projRb = projInstance.GetComponent<Rigidbody>();
+        projRb.velocity = movementDirection * m_bulletVelocity;
+
+        Explosion explosion = projInstance.GetComponent<Explosion>();
+        StartCoroutine(explosion.TimedExplosion(projInstance));
     }
 }
