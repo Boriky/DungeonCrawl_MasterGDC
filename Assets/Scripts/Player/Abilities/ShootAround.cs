@@ -9,18 +9,21 @@ public class ShootAround : Ability
 
     [Header("Gameplay Values")]
     [SerializeField] float m_bulletVelocity = 10.0f;
+    [SerializeField] float m_cooldown = 2.0f;
 
     [Header("Starting Positions")]
     [SerializeField] Vector3[] bulletsPositions;
     [SerializeField] float[] bulletsYRotations;
 
     private int m_numberOfBullets;
+    private GameManager m_gameManager = null;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Awake ()
     {
         m_numberOfBullets = bulletsPositions.Length;
-	}
+        m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -34,7 +37,7 @@ public class ShootAround : Ability
     /// <summary>
     /// Instantiate "m_numberOfBullets" projectiles as children of "Room", force them a velocity and start the TimedExplosion coroutine on each projectile
     /// </summary>
-    void FireProjectiles()
+    public void FireProjectiles()
     {
         for (int index = 0; index < m_numberOfBullets; ++index)
         {
@@ -47,6 +50,15 @@ public class ShootAround : Ability
 
             Explosion explosion = projInstance.GetComponent<Explosion>();
             StartCoroutine(explosion.TimedExplosion(projInstance));
+
+            m_gameManager.m_playerAbilitiesButtons[3].interactable = false;
+            StartCoroutine(CooldownExecution());
         } 
+    }
+
+    IEnumerator CooldownExecution()
+    {
+        yield return new WaitForSeconds(m_cooldown);
+        m_gameManager.m_playerAbilitiesButtons[3].interactable = true;
     }
 }

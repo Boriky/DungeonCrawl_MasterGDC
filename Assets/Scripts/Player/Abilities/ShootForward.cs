@@ -10,9 +10,16 @@ public class ShootForward : Ability
     [Header("Gameplay Values")]
     [SerializeField] float m_bulletVelocity = 10.0f;
     [SerializeField] bool m_keyboardControls = true;
+    [SerializeField] float m_cooldown = 1.5f;
 
     private float zAxis = 0.0f;
     private float xAxis = 0.0f;
+    private GameManager m_gameManager = null;
+
+    private void Awake()
+    {
+        m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    } 
 
     // Update is called once per frame
     void Update ()
@@ -47,7 +54,7 @@ public class ShootForward : Ability
     /// </summary>
     /// <param name="i_zAxis"></param>
     /// <param name="i_xAxis"></param>
-    void FireProjectile()
+    public void FireProjectile()
     {
         Vector3 movementDirection = new Vector3(xAxis, 0, zAxis);
 
@@ -83,5 +90,14 @@ public class ShootForward : Ability
 
         Explosion explosion = projInstance.GetComponent<Explosion>();
         StartCoroutine(explosion.TimedExplosion(projInstance));
+
+        m_gameManager.m_playerAbilitiesButtons[2].interactable = false;
+        StartCoroutine(CooldownExecution());
+    }
+
+    IEnumerator CooldownExecution()
+    {
+        yield return new WaitForSeconds(m_cooldown);
+        m_gameManager.m_playerAbilitiesButtons[2].interactable = true;
     }
 }

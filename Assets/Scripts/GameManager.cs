@@ -1,15 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int ENEMY_NUMBER = 5;
+    [Header("Room settings")]
+    [SerializeField] Room m_roomPrefab = null;
 
-    public Room m_roomPrefab = null;
-    public GameObject m_playerPrefab = null;
-    public Enemy[] m_enemyPrefabs = null;
-    
+    [Header("Player settings")]
+    [SerializeField] GameObject m_playerPrefab = null;
+
+    [Header("Enemies settings")]
+    [SerializeField] int ENEMY_NUMBER = 5;
+    [SerializeField] Enemy[] m_enemyPrefabs = null;
+
+    [Header("UI references")]
+    [SerializeField] Slider m_playerHealthBar = null;
+    public Button[] m_playerAbilitiesButtons = new Button[4];
+
     private Room m_roomInstance = null;
     private GameObject m_playerInstance = null;
     private Enemy[] m_enemies = null;
@@ -19,12 +28,15 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        
         m_roomInstance = Instantiate(m_roomPrefab) as Room;
         m_roomInstance.Generate(new IntVector2(-1, -1), Directions.Direction.North);
 
         SpawnCharacters();
+    }
 
+    private void Start()
+    {
+        InitializeSkillBarAbilities();
     }
 
     private void SpawnCharacters()
@@ -55,6 +67,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void InitializeSkillBarAbilities()
+    {
+        Jump jumpSkill = m_playerInstance.GetComponent<Jump>();
+        RollOver rollSkill = m_playerInstance.GetComponent<RollOver>();
+        ShootForward shootForwardSkill = m_playerInstance.GetComponent<ShootForward>();
+        ShootAround shootAroundSkill = m_playerInstance.GetComponent<ShootAround>();
+
+        m_playerAbilitiesButtons[0].onClick.AddListener(jumpSkill.PerformJump);
+        m_playerAbilitiesButtons[1].onClick.AddListener(rollSkill.PerformRollOver);
+        m_playerAbilitiesButtons[2].onClick.AddListener(shootForwardSkill.FireProjectile);
+        m_playerAbilitiesButtons[3].onClick.AddListener(shootAroundSkill.FireProjectiles);
+    }
+
     private void onPlayerDeath(PlayerHealth i_Listener)
     {
         if (i_Listener != null)
@@ -74,8 +99,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public Slider GetPlayerHealthBar()
     {
+        return m_playerHealthBar;
     }
 }

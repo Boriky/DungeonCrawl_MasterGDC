@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public delegate void OnPlayerDeathDelegate(PlayerHealth i_Listener);
 
@@ -23,9 +24,11 @@ public class PlayerHealth : MonoBehaviour
     private bool m_isDamageable = true;
     private bool m_isDead = false;
     private bool m_damaged = false;
+    private GameManager m_gameManager = null;
     private Material m_playerMaterial = null;
     private Rigidbody m_rigidBody = null;
     private AudioSource m_playerAudio = null;
+    private Slider m_healthBar = null;
 
     // Use this for initialization
     void Awake ()
@@ -34,6 +37,8 @@ public class PlayerHealth : MonoBehaviour
         m_playerMaterial = GetComponent<Renderer>().material;
         m_rigidBody = GetComponent<Rigidbody>();
         m_playerAudio = GetComponent<AudioSource>();
+        m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        m_healthBar = m_gameManager.GetPlayerHealthBar();
 	}
 	
 	// Update is called once per frame
@@ -61,6 +66,7 @@ public class PlayerHealth : MonoBehaviour
             m_damaged = true;
 
             m_currentHealth -= i_damageAmount;
+            m_healthBar.value = m_currentHealth;
 
             if (m_currentHealth <= 0 && !m_isDead)
             {

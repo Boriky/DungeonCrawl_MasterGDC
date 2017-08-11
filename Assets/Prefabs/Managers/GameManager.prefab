@@ -51,10 +51,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610a58c072d3f0d4eae34e92cb132a28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ENEMY_NUMBER: 5
   m_roomPrefab: {fileID: 114631039901530244, guid: 171a7b70f2acf084191b94b94888c01b,
     type: 2}
   m_playerPrefab: {fileID: 1873301602566498, guid: 5a76f56f1c6277240895644bf2fcf264,
     type: 2}
+  ENEMY_NUMBER: 10
   m_enemyPrefabs:
-  - {fileID: 114516230394795924, guid: 377476b8389915c4d9a4f1841a0722f8, type: 2}
+  - {fileID: 114585095182678762, guid: 377476b8389915c4d9a4f1841a0722f8, type: 2}
+  m_playerHealthBar: {fileID: 0}
+  m_playerAbilitiesButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

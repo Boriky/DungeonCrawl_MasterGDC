@@ -166,6 +166,7 @@ MonoBehaviour:
   m_flashSpeed: 5
   m_flashColor: {r: 1, g: 0, b: 0, a: 0.1}
   m_deathClip: {fileID: 0}
+  m_healthBar: {fileID: 0}
 --- !u!114 &114678319410276184
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public delegate void OnDeathDelegate(EnemyHealth i_Listener);
 public delegate void OnLifeChangedDelegate(float i_Prev, float i_New);
@@ -14,6 +15,10 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] int m_currentShield;
     [SerializeField] float m_sinkSpeed = 2.5f;
     [SerializeField] int m_scoreValue = 10;
+
+    [Header("User interface")]
+    [SerializeField] Slider m_healthBar = null;
+    [SerializeField] Slider m_shieldBar = null;
 
     public OnDeathDelegate m_onDeathEvent = null;
     public OnLifeChangedDelegate m_onLifeChangedEvent = null;
@@ -51,6 +56,7 @@ public class EnemyHealth : MonoBehaviour
             return;
 
         m_currentHealth -= i_damageAmount;
+        m_healthBar.value = m_currentHealth;
         
         if(m_currentHealth <= 0)
         {
@@ -71,6 +77,7 @@ public class EnemyHealth : MonoBehaviour
             return;
 
         m_currentShield -= i_damageAmount;
+        m_shieldBar.value = m_currentShield;
 
         if (m_currentShield <= 0)
         {

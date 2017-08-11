@@ -7,21 +7,25 @@ public class RollOver : Ability
     [Header("Gameplay values")]
     [SerializeField] float m_force = 5.0f;
     [SerializeField] bool m_keyboardControls = true;
+    [SerializeField]
+    float m_cooldown = 1.0f;
 
     private Rigidbody m_playerRb = null;
+    private GameManager m_gameManager = null;
 
-	// Use this for initialization
-	void Awake ()
+    float zAxis;
+    float xAxis;
+
+    // Use this for initialization
+    void Awake ()
     {
         m_playerRb = GetComponent<Rigidbody>();
+        m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        float zAxis;
-        float xAxis;
-
         if (m_keyboardControls)
         {
             zAxis = Input.GetAxis("Vertical");
@@ -33,11 +37,24 @@ public class RollOver : Ability
             xAxis = (Input.acceleration.y /*- m_xStart*/);
         }
 
-        Vector3 movementDirection = new Vector3(xAxis, 0, zAxis);
-
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            m_playerRb.AddForce(movementDirection * m_force, ForceMode.VelocityChange);
+            PerformRollOver();
         }
-	}
+    }
+
+    public void PerformRollOver()
+    {
+        Vector3 movementDirection = new Vector3(xAxis, 0, zAxis);
+        m_playerRb.AddForce(movementDirection * m_force, ForceMode.VelocityChange);
+
+        m_gameManager.m_playerAbilitiesButtons[1].interactable = false;
+        StartCoroutine(CooldownExecution());
+    }
+
+    IEnumerator CooldownExecution()
+    {
+        yield return new WaitForSeconds(m_cooldown);
+        m_gameManager.m_playerAbilitiesButtons[1].interactable = true;
+    }
 }
