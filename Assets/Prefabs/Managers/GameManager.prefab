@@ -57,10 +57,14 @@ MonoBehaviour:
     type: 2}
   ENEMY_NUMBER: 10
   m_enemyPrefabs:
-  - {fileID: 114585095182678762, guid: 377476b8389915c4d9a4f1841a0722f8, type: 2}
-  m_playerHealthBar: {fileID: 0}
-  m_playerAbilitiesButtons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1241461989511854, guid: 377476b8389915c4d9a4f1841a0722f8, type: 2}
+  m_playerHealthBar: {fileID: 114527019037785044, guid: 22be5b203c3fe1d459bed84fee024fb2,
+    type: 2}
+  m_abilityButton1: {fileID: 114719119920464060, guid: 8be8d8bfa4804a841ab0565eb177fd5a,
+    type: 2}
+  m_abilityButton2: {fileID: 114693702931667972, guid: 8be8d8bfa4804a841ab0565eb177fd5a,
+    type: 2}
+  m_abilityButton3: {fileID: 114870764707570748, guid: 8be8d8bfa4804a841ab0565eb177fd5a,
+    type: 2}
+  m_abilityButton4: {fileID: 114430750123620084, guid: 8be8d8bfa4804a841ab0565eb177fd5a,
+    type: 2}

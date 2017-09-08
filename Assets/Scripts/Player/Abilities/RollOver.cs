@@ -33,8 +33,8 @@ public class RollOver : Ability
         }
         else
         {
-            zAxis = (Input.acceleration.z /*- m_zStart*/);
-            xAxis = (Input.acceleration.y /*- m_xStart*/);
+            zAxis = (Input.acceleration.y /*- m_zStart*/);
+            xAxis = (Input.acceleration.x /*- m_xStart*/);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -48,13 +48,13 @@ public class RollOver : Ability
         Vector3 movementDirection = new Vector3(xAxis, 0, zAxis);
         m_playerRb.AddForce(movementDirection * m_force, ForceMode.VelocityChange);
 
-        m_gameManager.m_playerAbilitiesButtons[1].interactable = false;
+        m_gameManager.m_abilityButton2.interactable = false;
         StartCoroutine(CooldownExecution());
     }
 
     IEnumerator CooldownExecution()
     {
         yield return new WaitForSeconds(m_cooldown);
-        m_gameManager.m_playerAbilitiesButtons[1].interactable = true;
+        m_gameManager.m_abilityButton2.interactable = true;
     }
 }

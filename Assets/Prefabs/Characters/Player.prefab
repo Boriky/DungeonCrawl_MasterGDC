@@ -117,7 +117,8 @@ MonoBehaviour:
   m_projectile: {fileID: 1828929024661246, guid: fbf37e9aadb8baa42a8c750ee8bc47c2,
     type: 2}
   m_bulletVelocity: 15
-  m_keyboardControls: 1
+  m_keyboardControls: 0
+  m_cooldown: 1.5
 --- !u!114 &114206522300016476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -132,6 +133,7 @@ MonoBehaviour:
   m_projectile: {fileID: 1828929024661246, guid: fbf37e9aadb8baa42a8c750ee8bc47c2,
     type: 2}
   m_bulletVelocity: 20
+  m_cooldown: 2
   bulletsPositions:
   - {x: 1.5, y: 0, z: 0}
   - {x: -1.5, y: 0, z: 0}
@@ -166,7 +168,6 @@ MonoBehaviour:
   m_flashSpeed: 5
   m_flashColor: {r: 1, g: 0, b: 0, a: 0.1}
   m_deathClip: {fileID: 0}
-  m_healthBar: {fileID: 0}
 --- !u!114 &114678319410276184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -179,7 +180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_force: 15
-  m_keyboardControls: 1
+  m_keyboardControls: 0
+  m_cooldown: 1
 --- !u!114 &114941758154081538
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -203,9 +205,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90bf14477cb0a1a4b890026a62b48807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_force: 8
+  m_force: 15
   m_force2: 20
   m_rayLenght: 0.6
+  m_cooldown: 0.5
 --- !u!135 &135487604241866038
 SphereCollider:
   m_ObjectHideFlags: 1

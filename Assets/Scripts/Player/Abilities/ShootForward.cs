@@ -44,8 +44,8 @@ public class ShootForward : Ability
         }
         else
         {
-            zAxis = (Input.acceleration.z /*- m_zStart*/);
-            xAxis = (Input.acceleration.y /*- m_xStart*/);
+            zAxis = (Input.acceleration.y /*- m_zStart*/);
+            xAxis = (Input.acceleration.x /*- m_xStart*/);
         }
     }
 
@@ -91,13 +91,13 @@ public class ShootForward : Ability
         Explosion explosion = projInstance.GetComponent<Explosion>();
         StartCoroutine(explosion.TimedExplosion(projInstance));
 
-        m_gameManager.m_playerAbilitiesButtons[2].interactable = false;
+        m_gameManager.m_abilityButton3.interactable = false;
         StartCoroutine(CooldownExecution());
     }
 
     IEnumerator CooldownExecution()
     {
         yield return new WaitForSeconds(m_cooldown);
-        m_gameManager.m_playerAbilitiesButtons[2].interactable = true;
+        m_gameManager.m_abilityButton3.interactable = true;
     }
 }

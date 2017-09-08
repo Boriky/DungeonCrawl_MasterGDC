@@ -51,7 +51,7 @@ public class ShootAround : Ability
             Explosion explosion = projInstance.GetComponent<Explosion>();
             StartCoroutine(explosion.TimedExplosion(projInstance));
 
-            m_gameManager.m_playerAbilitiesButtons[3].interactable = false;
+            m_gameManager.m_abilityButton4.interactable = false;
             StartCoroutine(CooldownExecution());
         } 
     }
@@ -59,6 +59,6 @@ public class ShootAround : Ability
     IEnumerator CooldownExecution()
     {
         yield return new WaitForSeconds(m_cooldown);
-        m_gameManager.m_playerAbilitiesButtons[3].interactable = true;
+        m_gameManager.m_abilityButton4.interactable = true;
     }
 }
