@@ -50,11 +50,14 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
+        m_aiManager = new AIManager();
         InitializeSkillBarAbilities();
+        
     }
 
     private void Update()
     {
+        m_aiManager.MoveEnemies(m_enemies, m_playerInstance.transform.position);
         if (m_levelCompleted)
         {
             CreateNewLevel();
