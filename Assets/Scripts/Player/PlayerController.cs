@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
             moveOnZAxis = (Input.acceleration.z /*- m_xStart*/);
         }
         Vector3 direction = new Vector3(moveOnXAxis, 0.0f, moveOnZAxis);
-        m_playerRb.AddForce(direction * m_movementSpeed, ForceMode.Force);
+        Vector3 rotated = m_mainCamera.transform.rotation * direction;
+        m_playerRb.AddForce(rotated * m_movementSpeed, ForceMode.Force);
     }
 }
