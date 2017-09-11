@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     [Header("Levels settings")]
     [SerializeField] GameObject[] m_levelPrefabs = null;
     [SerializeField] GameObject m_groundLevel = null;
+    [SerializeField] Camera m_mainCamera = null;
+    [SerializeField] GameObject m_scenery = null;
 
     [Header("UI references")]
     [SerializeField] Slider m_playerHealthBar = null;
@@ -32,12 +34,14 @@ public class GameManager : MonoBehaviour
     private GameObject[] m_levelInstances = null;
     private bool m_enemiesInitialized = false;
     public bool m_levelCompleted = false;     // TODO set to private
+    private int m_numberOfActiveEnemies = 0;
     private int m_currentLevelIndex = 0;
 
     private AIManager m_aiManager = null;
 
     private void Awake()
     {
+        m_mainCamera = Camera.main;
         CreateProceduralRoom();
         SpawnLevels();
         SpawnCharacters();
@@ -55,6 +59,13 @@ public class GameManager : MonoBehaviour
         {
             CreateNewLevel();
         }
+
+        if (m_numberOfActiveEnemies == 0)
+        {
+            // Open the trapdoor for the next level
+            // if the player cross the trapdoor, set the player as kinematic, m_levelCompleted = true and generate new level!
+            m_levelCompleted = true;
+        }
     }
 
     private void CreateProceduralRoom()
@@ -65,7 +76,6 @@ public class GameManager : MonoBehaviour
 
     private void SpawnLevels()
     {
-
         int numberOfLevels = m_levelPrefabs.Length + 1;
         m_levelInstances = new GameObject[numberOfLevels];
 
@@ -79,6 +89,7 @@ public class GameManager : MonoBehaviour
             float zPosition = m_groundLevel.transform.position.z;
             Vector3 levelPosition = new Vector3(xPosition, yPosition, zPosition);
             m_levelInstances[m_currentLevelIndex] = Instantiate(m_levelPrefabs[m_currentLevelIndex - 1], levelPosition, Quaternion.identity);
+            m_levelInstances[m_currentLevelIndex].transform.parent = m_scenery.transform;
 
             if (m_currentLevelIndex == numberOfLevels - 1)
             {
@@ -93,7 +104,7 @@ public class GameManager : MonoBehaviour
 
     private void SetRoomPosition()
     {
-        m_roomInstance.transform.parent = m_levelInstances[m_currentLevelIndex].transform;
+        //m_roomInstance.transform.parent = m_levelInstances[m_currentLevelIndex].transform;
         m_roomInstance.transform.position = new Vector3(m_roomInstance.transform.position.x, m_groundLevel.transform.position.y + (22.0f * m_currentLevelIndex + 1), m_roomInstance.transform.position.z);
     }
 
@@ -115,7 +126,8 @@ public class GameManager : MonoBehaviour
 
     void EnemiesSpawn()
     {
-        for (int enemyIndex = 0; enemyIndex < m_enemies.Length - 1; ++enemyIndex)
+        m_numberOfActiveEnemies = ENEMY_NUMBER;
+        for (int enemyIndex = 0; enemyIndex < m_enemies.Length; ++enemyIndex)
         {
             Enemy enemy = Instantiate(m_enemyPrefabs[Random.Range(0, m_enemyPrefabs.Length)]).GetComponent<Enemy>();
             Vector3 position = m_roomInstance.getSpawningPosition();
@@ -140,11 +152,13 @@ public class GameManager : MonoBehaviour
 
     void CreateNewLevel()
     {
+        m_mainCamera.transform.position = new Vector3(m_mainCamera.transform.position.x, m_mainCamera.transform.position.y - 22.0f, m_mainCamera.transform.position.z);
         m_playerInstance.transform.parent = null;
         CreateProceduralRoom();
         Destroy(m_levelInstances[m_currentLevelIndex]);
         m_currentLevelIndex--;
         SetRoomPosition();
+        EnemiesSpawn();
         m_levelCompleted = false;
     }
 
@@ -164,6 +178,7 @@ public class GameManager : MonoBehaviour
         if (i_Listener != null)
         {
             Destroy(i_Listener.gameObject);
+            m_numberOfActiveEnemies--;
         }
     }
 
