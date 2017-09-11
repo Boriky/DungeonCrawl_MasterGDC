@@ -33,14 +33,21 @@ public class GameManager : MonoBehaviour
     {
         m_roomInstance = Instantiate(m_roomPrefab) as Room;
         m_roomInstance.Generate(new IntVector2(-1, -1), Directions.Direction.North);
-
+        
         SpawnCharacters();
     }
 
     // Use this for initialization
     private void Start()
     {
+        m_aiManager = new AIManager();
         InitializeSkillBarAbilities();
+        
+    }
+
+    private void Update()
+    {
+        m_aiManager.MoveEnemies(m_enemies, m_playerInstance.transform.position);
     }
 
     private void SpawnCharacters()
@@ -60,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     void EnemiesSpawn()
     {
-        for (int enemyIndex = 0; enemyIndex < m_enemies.Length - 1; ++enemyIndex)
+        for (int enemyIndex = 0; enemyIndex < m_enemies.Length; ++enemyIndex)
         {
             Enemy enemy = Instantiate(m_enemyPrefabs[Random.Range(0, m_enemyPrefabs.Length)]).GetComponent<Enemy>();
             Vector3 position = m_roomInstance.getSpawningPosition();

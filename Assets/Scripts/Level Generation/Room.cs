@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.AI;
 using UnityEngine;
 
 public class Room : MonoBehaviour
@@ -22,7 +23,8 @@ public class Room : MonoBehaviour
         {
             //GENERATE STARTING DOOR IN ROOM AND START GENERATION OF ROOM FROM THIS TILE
             playerStartPosition = ConvertToNewRoomCoordinates(doorPreviousCoordinates, doorPreviousDirection);
-        } else
+        }
+        else
         {
             playerStartPosition = new IntVector2(0, UnityEngine.Random.Range(0, size.z));
         }
@@ -38,9 +40,7 @@ public class Room : MonoBehaviour
         {
             DoNextGenerationStep(activeComponents);
         }
-
-     }
-
+    }
     private void DoFirstGenerationStep(IntVector2 startPositionForGeneration, Directions.Direction doorPreviousDirection, List<RoomComponent> activeComponents)
     {
         RoomComponent firstComponent = InstantiateSafeComponent();
@@ -48,7 +48,6 @@ public class Room : MonoBehaviour
         firstComponent.Initialize(startPositionForGeneration, transform, size);
 
         activeComponents.Add(firstComponent);
-
     }
 
     //TODO: METTERE PORTE
@@ -101,7 +100,12 @@ public class Room : MonoBehaviour
             currentComponent.AddNeighbour(null, direction);
 
         }
+        GetComponent<NavMeshSurface>().BuildNavMesh();
 
+    }
+    private void Update()
+    {
+        //GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 
     private RoomComponent InstantiateSafeComponent()
