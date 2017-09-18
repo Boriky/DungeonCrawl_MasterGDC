@@ -80,6 +80,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33534112103968158
 MeshFilter:
@@ -221,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_keyboardControls: 1
-  m_movementSpeed: 5
+  m_movementSpeed: 50
 --- !u!135 &135487604241866038
 SphereCollider:
   m_ObjectHideFlags: 1
