@@ -7,8 +7,12 @@ public class AIManager {
 
     public void MoveEnemies(Enemy[] enemies, Vector3 position)
     {
-        foreach (Enemy currentEnemy in enemies) {
-            currentEnemy.GetComponent<NavMeshAgent>().destination = position;
+        foreach (Enemy currentEnemy in enemies)
+        {
+            if (currentEnemy!=null)
+            {
+                currentEnemy.GetComponent<NavMeshAgent>().destination = position;
+            }
         }
     }
 }

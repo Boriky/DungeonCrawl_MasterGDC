@@ -60,7 +60,14 @@ public class GameManager : MonoBehaviour
         m_aiManager.MoveEnemies(m_enemies, m_playerInstance.transform.position);
         if (m_levelCompleted)
         {
-            CreateNewLevel();
+            if (m_currentLevelIndex!=0)
+            {
+                CreateNewLevel();
+            }
+            else
+            {
+                // game completed
+            }
         }
 
         if (m_numberOfActiveEnemies == 0)
