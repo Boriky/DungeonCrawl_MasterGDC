@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
 
     private void SetRoomPosition()
     {
-        //m_roomInstance.transform.parent = m_levelInstances[m_currentLevelIndex].transform;
+        m_roomInstance.transform.parent = m_levelInstances[m_currentLevelIndex].transform;
         m_roomInstance.transform.position = new Vector3(m_roomInstance.transform.position.x, m_groundLevel.transform.position.y + (22.0f * m_currentLevelIndex + 1), m_roomInstance.transform.position.z);
     }
 
