@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     private GameObject m_playerInstance = null;
     private Enemy[] m_enemies = null;
     private GameObject[] m_levelInstances = null;
+    private ScoreSystem m_scoreSystem = null;
     private bool m_enemiesInitialized = false;
     public bool m_levelCompleted = false;     // TODO set to private
     private int m_numberOfActiveEnemies = 0;
@@ -51,8 +52,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         m_aiManager = new AIManager();
+        m_scoreSystem = GetComponent<ScoreSystem>();
         InitializeSkillBarAbilities();
-        
+
+        m_scoreSystem.SetGameAsActive(true);
     }
 
     private void Update()
