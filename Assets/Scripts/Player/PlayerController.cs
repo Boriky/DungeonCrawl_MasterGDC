@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             moveOnXAxis = (Input.acceleration.x /*- m_zStart*/);
-            moveOnZAxis = (Input.acceleration.z /*- m_xStart*/);
+            moveOnZAxis = (Input.acceleration.y /*- m_xStart*/);
         }
         Vector3 direction = new Vector3(moveOnZAxis, 0.0f, -moveOnXAxis);
         Quaternion cameraOrientation = new Quaternion(0.0f, m_mainCamera.transform.rotation.y, 0.0f, m_mainCamera.transform.rotation.w);
