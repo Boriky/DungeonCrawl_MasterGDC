@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        m_aiManager.MoveEnemies(m_enemies, m_playerInstance.transform.position);
+        //m_aiManager.MoveEnemies(m_enemies, m_playerInstance.transform.position);
         if (m_levelCompleted)
         {
             if (m_currentLevelIndex!=0)
