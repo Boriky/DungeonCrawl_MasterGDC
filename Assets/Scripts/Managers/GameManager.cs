@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Camera m_mainCamera = null;
     [SerializeField] GameObject m_scenery = null;
     [SerializeField] Light m_globalDirectLight = null;
+    [SerializeField] Light m_playerLight = null;
     [SerializeField] Light m_divineLight = null;
     [SerializeField] MeshCollider m_coneCollider = null;
     [SerializeField] MeshRenderer m_coneRenderer = null;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
     private int m_numberOfActiveEnemies = 0;
     private int m_currentLevelIndex = 0;
     public bool m_riseDirectLight = false;
+    public float m_defaultPlayerLightSpotAngle = 0;
 
     private AIManager m_aiManager = null;
 
@@ -62,6 +64,8 @@ public class GameManager : MonoBehaviour
         InitializeSkillBarAbilities();
 
         m_scoreSystem.SetGameAsActive(true);
+
+        m_defaultPlayerLightSpotAngle = m_playerLight.spotAngle;
     }
 
     private void Update()
@@ -115,6 +119,16 @@ public class GameManager : MonoBehaviour
 
                 m_playerInstance.GetComponent<Rigidbody>().isKinematic = false;
                 m_playerInstance.GetComponent<OnLightCrossed>().hasEntered = false;
+
+                // give player some of its light back if he has been damanged
+                if (m_playerLight.spotAngle < m_defaultPlayerLightSpotAngle)
+                {
+                    m_playerLight.spotAngle += 10.0f;
+                    if (m_playerLight.spotAngle > m_defaultPlayerLightSpotAngle)
+                    {
+                        m_playerLight.spotAngle = m_defaultPlayerLightSpotAngle;
+                    }
+                }
 
                 m_coneCollider.enabled = false;
                 m_coneRenderer.enabled = false;

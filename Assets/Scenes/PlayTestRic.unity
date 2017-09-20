@@ -809,6 +809,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 853261831}
+--- !u!108 &905019636 stripped
+Light:
+  m_PrefabParentObject: {fileID: 108920854331882686, guid: 016d47b426ff5db43b59fb4cd674eee7,
+    type: 2}
+  m_PrefabInternal: {fileID: 695323369}
 --- !u!1001 &956539870
 Prefab:
   m_ObjectHideFlags: 0
@@ -2202,6 +2207,11 @@ Prefab:
       propertyPath: m_coneRenderer
       value: 
       objectReference: {fileID: 1991848603}
+    - target: {fileID: 114939932088075126, guid: 710ebce93b78fe04a859a7e3cb47d21b,
+        type: 2}
+      propertyPath: m_playerLight
+      value: 
+      objectReference: {fileID: 905019636}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 710ebce93b78fe04a859a7e3cb47d21b, type: 2}
   m_IsPrefabParent: 0
