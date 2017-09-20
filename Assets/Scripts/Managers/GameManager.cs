@@ -20,6 +20,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject m_groundLevel = null;
     [SerializeField] Camera m_mainCamera = null;
     [SerializeField] GameObject m_scenery = null;
+    [SerializeField] Light m_globalDirectLight = null;
+    [SerializeField] Light m_divineLight = null;
+    [SerializeField] MeshCollider m_coneCollider = null;
+    [SerializeField] MeshRenderer m_coneRenderer = null;
+    [SerializeField] BoxCollider m_levelTrigger = null;
 
     [Header("UI references")]
     [SerializeField] Slider m_playerHealthBar = null;
@@ -37,6 +42,7 @@ public class GameManager : MonoBehaviour
     public bool m_levelCompleted = false;     // TODO set to private
     private int m_numberOfActiveEnemies = 0;
     private int m_currentLevelIndex = 0;
+    public bool m_riseDirectLight = false;
 
     private AIManager m_aiManager = null;
 
@@ -60,24 +66,66 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //m_aiManager.MoveEnemies(m_enemies, m_playerInstance.transform.position);
+        m_aiManager.MoveEnemies(m_enemies, m_playerInstance.transform.position);
+
+        if (m_numberOfActiveEnemies == 0)
+        {
+            m_riseDirectLight = true;
+            // enter only one time in this condition
+            m_numberOfActiveEnemies = 1;
+        }
+
+        if (m_riseDirectLight)
+        {
+            m_globalDirectLight.enabled = true;
+            m_globalDirectLight.intensity += 0.008f;
+
+            m_divineLight.enabled = true;
+            m_divineLight.intensity += 0.03f;
+
+            if (m_globalDirectLight.intensity > 0.7f)
+            {
+                m_coneCollider.enabled = true;
+                m_coneRenderer.enabled = true;
+                m_levelTrigger.enabled = true;
+                m_riseDirectLight = false;
+            }
+        }
+
+        if (m_playerInstance.GetComponent<Rigidbody>().isKinematic)
+        {
+            m_globalDirectLight.intensity += 0.1f;
+
+            if (m_globalDirectLight.intensity > 20)
+            {
+                m_levelCompleted = true;
+            }
+        }
+
         if (m_levelCompleted)
         {
-            if (m_currentLevelIndex!=0)
+            if (m_currentLevelIndex != 0)
             {
+                // generate new level
                 CreateNewLevel();
+                // set direct light to 0
+                m_globalDirectLight.intensity = 0.0f;
+                // set spotlight to whatever it was
+                m_divineLight.intensity = 0.0f;
+
+                m_playerInstance.GetComponent<Rigidbody>().isKinematic = false;
+                m_playerInstance.GetComponent<OnLightCrossed>().hasEntered = false;
+
+                m_coneCollider.enabled = false;
+                m_coneRenderer.enabled = false;
+                m_levelTrigger.enabled = false; 
+
+                m_levelCompleted = false;
             }
             else
             {
                 // game completed
             }
-        }
-
-        if (m_numberOfActiveEnemies == 0)
-        {
-            // Open the trapdoor for the next level
-            // if the player cross the trapdoor, set the player as kinematic, m_levelCompleted = true and generate new level!
-            m_levelCompleted = true;
         }
     }
 
@@ -166,6 +214,8 @@ public class GameManager : MonoBehaviour
     void CreateNewLevel()
     {
         m_mainCamera.transform.position = new Vector3(m_mainCamera.transform.position.x, m_mainCamera.transform.position.y - 22.0f, m_mainCamera.transform.position.z);
+        m_divineLight.enabled = false;
+        m_divineLight.transform.position = new Vector3(m_divineLight.transform.position.x, m_divineLight.transform.position.y - 22.0f, m_divineLight.transform.position.z);
         m_playerInstance.transform.parent = null;
         CreateProceduralRoom();
         Destroy(m_levelInstances[m_currentLevelIndex]);

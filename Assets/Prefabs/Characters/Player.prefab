@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 114015932368717504}
   - component: {fileID: 114206522300016476}
   - component: {fileID: 114999735355072746}
+  - component: {fileID: 114179921258223722}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -128,7 +129,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0.5
-  m_AngularDrag: 0.5
+  m_AngularDrag: 15
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -186,6 +187,18 @@ MonoBehaviour:
   m_bulletVelocity: 15
   m_keyboardControls: 0
   m_cooldown: 1.5
+--- !u!114 &114179921258223722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1873301602566498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9faac6339e44e3544ae0859874a2f946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasEntered: 0
 --- !u!114 &114206522300016476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -232,6 +245,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_startingHealth: 100
   m_currentHealth: 0
+  m_minSpotAngle: 5
+  m_directLight: {fileID: 108830311931919464, guid: 016d47b426ff5db43b59fb4cd674eee7,
+    type: 2}
   m_flashSpeed: 5
   m_flashColor: {r: 1, g: 0, b: 0, a: 0.1}
   m_deathClip: {fileID: 0}
@@ -272,8 +288,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90bf14477cb0a1a4b890026a62b48807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_force: 15
-  m_force2: 20
+  m_force: 20
+  m_force2: 50
+  m_forceAnticipation: 15
+  m_smashDownDelay: 0.3
   m_rayLenght: 0.6
   m_cooldown: 0.5
 --- !u!114 &114999735355072746
@@ -288,7 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_keyboardControls: 1
-  m_movementSpeed: 15
+  m_movementSpeed: 30
   m_maxVelocity: 10
 --- !u!135 &135487604241866038
 SphereCollider:

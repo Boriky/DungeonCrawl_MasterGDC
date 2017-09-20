@@ -8,6 +8,9 @@ TagManager:
   - Enemy
   - Floor
   - Shield
+  - Fire
+  - LevelTrigger
+  - LevelTrigger2
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - PostProcessing
   - 
   - 
   - 
@@ -44,4 +47,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: 
+    uniqueID: 101344195
     locked: 0

@@ -10,6 +10,8 @@ public class PlayerHealth : MonoBehaviour
     [Header("Gameplay values")]
     [SerializeField] int m_startingHealth = 100;
     [SerializeField] int m_currentHealth = 0;
+    [SerializeField]float m_minSpotAngle = 5;
+    [SerializeField] Light m_directLight = null;
 
     [Header("Damage indicators")]
     [SerializeField] float m_flashSpeed = 5f;
@@ -39,12 +41,15 @@ public class PlayerHealth : MonoBehaviour
         m_playerAudio = GetComponent<AudioSource>();
         m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         m_healthBar = m_gameManager.GetPlayerHealthBar();
-	}
+        m_directLight = GameObject.Find("Spotlight").GetComponent<Light>();
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-	    if (m_damaged)
+        m_directLight.spotAngle = Random.Range(m_directLight.spotAngle - 0.1f, m_directLight.spotAngle + 0.1f);
+
+        if (m_damaged)
         {
             m_playerMaterial.color = m_flashColor;
         }
@@ -53,7 +58,9 @@ public class PlayerHealth : MonoBehaviour
             m_playerMaterial.color = Color.Lerp(m_playerMaterial.color, Color.clear, m_flashSpeed * Time.deltaTime);
         }
         m_damaged = false;
-	}
+
+        m_healthBar.value = m_currentHealth;
+    }
 
     /// <summary>
     /// Player takes damage for damageAmount; if health drops below zero, death event is called
@@ -67,6 +74,11 @@ public class PlayerHealth : MonoBehaviour
 
             m_currentHealth -= i_damageAmount;
             m_healthBar.value = m_currentHealth;
+
+            if (m_directLight.spotAngle > m_minSpotAngle)
+            {
+                m_directLight.spotAngle -= i_damageAmount / 2;
+            }
 
             if (m_currentHealth <= 0 && !m_isDead)
             {

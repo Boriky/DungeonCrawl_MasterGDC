@@ -8,6 +8,8 @@ public class Jump : Ability
     [Header("Gameplay values")]
     [SerializeField] float m_force = 5.0f;
     [SerializeField] float m_force2 = 20.0f;
+    [SerializeField] float m_forceAnticipation = 0.5f;
+    [SerializeField] float m_smashDownDelay = 0.5f;
     [SerializeField] float m_rayLenght = 0.6f;
     [SerializeField] float m_cooldown = 0.5f;
 
@@ -51,13 +53,20 @@ public class Jump : Ability
             if (m_isSmashJumpReady)
             {
                 m_playerRb.velocity = Vector3.zero;
-                m_playerRb.AddForce(Vector3.down * m_force2, ForceMode.Impulse);
-                m_gameManager.m_abilityButton1.interactable = false;
-
-                m_gameManager.m_abilityButton1.interactable = false;
-                StartCoroutine(CooldownExecution());
+                m_playerRb.AddForce(Vector3.up * m_forceAnticipation, ForceMode.Impulse);
+                StartCoroutine(PerformSmashDown());
             }
         }
+    }
+
+    IEnumerator PerformSmashDown()
+    {
+        yield return new WaitForSeconds(m_smashDownDelay);
+        m_playerRb.AddForce(Vector3.down * m_force2, ForceMode.Impulse);
+        m_gameManager.m_abilityButton1.interactable = false;
+
+        m_gameManager.m_abilityButton1.interactable = false;
+        StartCoroutine(CooldownExecution());
     }
 
     IEnumerator CooldownExecution()
