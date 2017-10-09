@@ -10,8 +10,10 @@ public class PlayerHealth : MonoBehaviour
     [Header("Gameplay values")]
     [SerializeField] int m_startingHealth = 100;
     [SerializeField] int m_currentHealth = 0;
-    [SerializeField]float m_minSpotAngle = 5;
+    [SerializeField] float m_minSpotAngle = 5.0f;
+    [SerializeField] float m_maxSpotAngle = 30.0f;
     [SerializeField] Light m_directLight = null;
+    [SerializeField] int m_healthRegeneration = 10;
 
     [Header("Damage indicators")]
     [SerializeField] float m_flashSpeed = 5f;
@@ -42,6 +44,7 @@ public class PlayerHealth : MonoBehaviour
         m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         m_healthBar = m_gameManager.GetPlayerHealthBar();
         m_directLight = GameObject.Find("Spotlight").GetComponent<Light>();
+        m_maxSpotAngle = m_directLight.spotAngle;
     }
 	
 	// Update is called once per frame
@@ -100,5 +103,27 @@ public class PlayerHealth : MonoBehaviour
         m_rigidBody.isKinematic = true;
 
         m_onDeathEvent(this);
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        SlowlyDisableLight disableLight = col.GetComponent<SlowlyDisableLight>();
+        if (disableLight != null && !disableLight.m_deactivating)
+        {
+            m_currentHealth += m_healthRegeneration;
+            if (m_currentHealth > m_startingHealth)
+            {
+                m_currentHealth = m_startingHealth;
+            }
+            m_healthBar.value = m_currentHealth;
+
+            m_directLight.spotAngle += m_healthRegeneration / 2;
+            if (m_directLight.spotAngle > m_maxSpotAngle)
+            {
+                m_directLight.spotAngle = m_maxSpotAngle;
+            }
+
+            disableLight.m_deactivating = true;
+        }
     }
 }
