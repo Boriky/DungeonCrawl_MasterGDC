@@ -34,19 +34,21 @@ public class GameManager : MonoBehaviour
     public Button m_abilityButton3 = null;
     public Button m_abilityButton4 = null;
 
+    [Header("Utility values")]
+    public bool m_riseDirectLight = false;
+    public float m_defaultPlayerLightSpotAngle = 0;
+    public bool m_levelCompleted = false;     // TODO set to private
+
     private Room m_roomInstance = null;
     private GameObject m_playerInstance = null;
     private Enemy[] m_enemies = null;
     private GameObject[] m_levelInstances = null;
     private ScoreSystem m_scoreSystem = null;
+    private AIManager m_aiManager = null;
+
     private bool m_enemiesInitialized = false;
-    public bool m_levelCompleted = false;     // TODO set to private
     private int m_numberOfActiveEnemies = 0;
     private int m_currentLevelIndex = 0;
-    public bool m_riseDirectLight = false;
-    public float m_defaultPlayerLightSpotAngle = 0;
-
-    private AIManager m_aiManager = null;
 
     private void Awake()
     {
@@ -71,7 +73,9 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         m_aiManager.MoveEnemies(m_enemies, m_playerInstance.transform.position);
+        bool playerIsKinematic = m_playerInstance.GetComponent<Rigidbody>().isKinematic;
 
+        // If there are no ememies left, start increasing the level global light
         if (m_numberOfActiveEnemies == 0)
         {
             m_riseDirectLight = true;
@@ -81,74 +85,32 @@ public class GameManager : MonoBehaviour
 
         if (m_riseDirectLight)
         {
-            m_globalDirectLight.enabled = true;
-            m_globalDirectLight.intensity += 0.008f;
-
-            m_divineLight.enabled = true;
-            m_divineLight.intensity += 0.03f;
-
-            if (m_globalDirectLight.intensity > 0.7f)
-            {
-                m_coneCollider.enabled = true;
-                m_coneRenderer.enabled = true;
-                m_levelTrigger.enabled = true;
-                m_riseDirectLight = false;
-            }
+            RiseGlobalDirectLightIntensity();
         }
 
-        if (m_playerInstance.GetComponent<Rigidbody>().isKinematic)
+        if (playerIsKinematic)
         {
-            m_globalDirectLight.intensity += 0.1f;
-
-            if (m_globalDirectLight.intensity > 20)
-            {
-                m_levelCompleted = true;
-            }
+            MaximizeGlobalIlluminationAndSetLevelCompleted();
         }
 
         if (m_levelCompleted)
         {
-            if (m_currentLevelIndex != 0)
-            {
-                // generate new level
-                CreateNewLevel();
-                // set direct light to 0
-                m_globalDirectLight.intensity = 0.0f;
-                // set spotlight to whatever it was
-                m_divineLight.intensity = 0.0f;
-
-                m_playerInstance.GetComponent<Rigidbody>().isKinematic = false;
-                m_playerInstance.GetComponent<OnLightCrossed>().hasEntered = false;
-
-                // give player some of its light back if he has been damanged
-                if (m_playerLight.spotAngle < m_defaultPlayerLightSpotAngle)
-                {
-                    m_playerLight.spotAngle += 10.0f;
-                    if (m_playerLight.spotAngle > m_defaultPlayerLightSpotAngle)
-                    {
-                        m_playerLight.spotAngle = m_defaultPlayerLightSpotAngle;
-                    }
-                }
-
-                m_coneCollider.enabled = false;
-                m_coneRenderer.enabled = false;
-                m_levelTrigger.enabled = false; 
-
-                m_levelCompleted = false;
-            }
-            else
-            {
-                // game completed
-            }
+            StartLevelCompletedProcedure();
         }
     }
 
+    /// <summary>
+    /// Procedurally generate a new level
+    /// </summary>
     private void CreateProceduralRoom()
     {
         m_roomInstance = Instantiate(m_roomPrefab) as Room;
         m_roomInstance.Generate(new IntVector2(-1, -1), Directions.Direction.North);
     }
 
+    /// <summary>
+    /// Generate a certain number of levels determined by the value "numberOfLevels" in a vertical tower with an offset of 22 units on the y axis
+    /// </summary>
     private void SpawnLevels()
     {
         int numberOfLevels = m_levelPrefabs.Length + 1;
@@ -177,12 +139,18 @@ public class GameManager : MonoBehaviour
         m_currentLevelIndex--;
     }
 
+    /// <summary>
+    /// Set the room position with an offset of 22 units on the y axis
+    /// </summary>
     private void SetRoomPosition()
     {
         m_roomInstance.transform.parent = m_levelInstances[m_currentLevelIndex].transform;
         m_roomInstance.transform.position = new Vector3(m_roomInstance.transform.position.x, m_groundLevel.transform.position.y + (22.0f * m_currentLevelIndex + 1), m_roomInstance.transform.position.z);
     }
 
+    /// <summary>
+    /// Spawn the player and the enemies based on the value ENEMY_NUMBER
+    /// </summary>
     private void SpawnCharacters()
     {
         PlayerSpawn();
@@ -191,7 +159,10 @@ public class GameManager : MonoBehaviour
         EnemiesSpawn();
     }
 
-    void PlayerSpawn()
+    /// <summary>
+    /// Instantiate the player and register it to its death event
+    /// </summary>
+    private void PlayerSpawn()
     {
         Vector3 playerPosition = new Vector3(m_roomInstance.transform.position.x, m_roomInstance.transform.position.y + 3, m_roomInstance.transform.position.z);
         m_playerInstance = Instantiate(m_playerPrefab, playerPosition, Quaternion.identity);
@@ -199,7 +170,10 @@ public class GameManager : MonoBehaviour
         m_playerInstance.GetComponent<PlayerHealth>().m_onDeathEvent += onPlayerDeath;
     }
 
-    void EnemiesSpawn()
+    /// <summary>
+    /// Instantiate all the enemies at random positions and register them to their death event
+    /// </summary>
+    private void EnemiesSpawn()
     {
         m_numberOfActiveEnemies = ENEMY_NUMBER;
         for (int enemyIndex = 0; enemyIndex < m_enemies.Length; ++enemyIndex)
@@ -212,7 +186,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void InitializeSkillBarAbilities()
+    /// <summary>
+    /// Register the player's abilities to the respective skillbar's buttons
+    /// </summary>
+    private void InitializeSkillBarAbilities()
     {
         Jump jumpSkill = m_playerInstance.GetComponent<Jump>();
         RollOver rollSkill = m_playerInstance.GetComponent<RollOver>();
@@ -225,7 +202,10 @@ public class GameManager : MonoBehaviour
         m_abilityButton4.onClick.AddListener(shootAroundSkill.FireProjectiles);
     }
 
-    void CreateNewLevel()
+    /// <summary>
+    /// Move the camera 22 units down, enable the divine light and its trigger, procedurally generate new level, set the new level position, spawn the enemies and call the destruction of the current level
+    /// </summary>
+    private void CreateNewLevel()
     {
         m_mainCamera.transform.position = new Vector3(m_mainCamera.transform.position.x, m_mainCamera.transform.position.y - 22.0f, m_mainCamera.transform.position.z);
         m_divineLight.enabled = false;
@@ -239,6 +219,10 @@ public class GameManager : MonoBehaviour
         m_levelCompleted = false;
     }
 
+    /// <summary>
+    /// Destroy the player and show the gameover results
+    /// </summary>
+    /// <param name="i_Listener"></param>
     private void onPlayerDeath(PlayerHealth i_Listener)
     {
         if (i_Listener != null)
@@ -250,6 +234,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Destroy the enemy and update the number of currently active enemies
+    /// </summary>
+    /// <param name="i_Listener"></param>
     private void OnEnemyDeath(EnemyHealth i_Listener)
     {
         if (i_Listener != null)
@@ -259,6 +247,81 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Slowly rise the global light intensity
+    /// </summary>
+    private void RiseGlobalDirectLightIntensity()
+    {
+        m_globalDirectLight.enabled = true;
+        m_globalDirectLight.intensity += 0.008f;
+
+        m_divineLight.enabled = true;
+        m_divineLight.intensity += 0.03f;
+
+        if (m_globalDirectLight.intensity > 0.7f)
+        {
+            m_coneCollider.enabled = true;
+            m_coneRenderer.enabled = true;
+            m_levelTrigger.enabled = true;
+            m_riseDirectLight = false;
+        }
+    }
+
+    /// <summary>
+    /// Procedurally icrease the brightness of the global direct light to the highest value and set the level as completed
+    /// </summary>
+    private void MaximizeGlobalIlluminationAndSetLevelCompleted()
+    {
+        m_globalDirectLight.intensity += 0.1f;
+
+        if (m_globalDirectLight.intensity > 20)
+        {
+            m_levelCompleted = true;
+        }
+    }
+
+    /// <summary>
+    /// Create new level, restore the global light settings to darkness, turn off player as kinematic, give the player back some of it's light/health, disable the divine light and its trigger
+    /// </summary>
+    private void StartLevelCompletedProcedure()
+    {
+        if (m_currentLevelIndex != 0)
+        {
+            // generate new level
+            CreateNewLevel();
+            // set direct light to 0
+            m_globalDirectLight.intensity = 0.0f;
+            // set spotlight to whatever it was
+            m_divineLight.intensity = 0.0f;
+
+            m_playerInstance.GetComponent<Rigidbody>().isKinematic = false;
+            m_playerInstance.GetComponent<OnLightCrossed>().hasEntered = false;
+
+            // give player some of its light back if he has been damanged
+            if (m_playerLight.spotAngle < m_defaultPlayerLightSpotAngle)
+            {
+                m_playerLight.spotAngle += 10.0f;
+                if (m_playerLight.spotAngle > m_defaultPlayerLightSpotAngle)
+                {
+                    m_playerLight.spotAngle = m_defaultPlayerLightSpotAngle;
+                }
+            }
+
+            m_coneCollider.enabled = false;
+            m_coneRenderer.enabled = false;
+            m_levelTrigger.enabled = false;
+
+            m_levelCompleted = false;
+        }
+        else
+        {
+            // game completed
+        }
+    }
+
+    /// <summary>
+    /// Returns the player's healthbar
+    /// </summary>
     public Slider GetPlayerHealthBar()
     {
         return m_playerHealthBar;
