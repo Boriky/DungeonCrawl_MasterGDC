@@ -54,6 +54,10 @@ public class Jump : Ability
             {
                 m_playerRb.velocity = Vector3.zero;
                 m_playerRb.AddForce(Vector3.up * m_forceAnticipation, ForceMode.Impulse);
+
+                m_gameManager.m_abilityButton1.interactable = false;
+                StartCoroutine(CooldownExecution());
+
                 StartCoroutine(PerformSmashDown());
             }
         }
@@ -63,10 +67,10 @@ public class Jump : Ability
     {
         yield return new WaitForSeconds(m_smashDownDelay);
         m_playerRb.AddForce(Vector3.down * m_force2, ForceMode.Impulse);
-        m_gameManager.m_abilityButton1.interactable = false;
+        /*m_gameManager.m_abilityButton1.interactable = false;
 
         m_gameManager.m_abilityButton1.interactable = false;
-        StartCoroutine(CooldownExecution());
+        StartCoroutine(CooldownExecution());*/
     }
 
     IEnumerator CooldownExecution()

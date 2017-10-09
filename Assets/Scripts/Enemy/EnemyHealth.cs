@@ -15,6 +15,8 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] int m_currentShield;
     [SerializeField] float m_sinkSpeed = 2.5f;
     [SerializeField] int m_scoreValue = 10;
+    [SerializeField] float m_repulsiveForceWhenDamaged = 5.0f;
+    [SerializeField] bool m_isBomberman = false;
 
     [Header("User interface")]
     [SerializeField] Slider m_healthBar = null;
@@ -25,8 +27,9 @@ public class EnemyHealth : MonoBehaviour
 
     private ParticleSystem hitParticles = null;
     private BoxCollider m_boxCollider = null;
-    private bool isDead = false;
+    public bool isDead = false;
     private bool isSinking = false;
+    private EnemyDeathEffect m_enemyDeathExplosion = null;
 
 	// Use this for initialization
 	void Awake ()
@@ -35,7 +38,9 @@ public class EnemyHealth : MonoBehaviour
         m_boxCollider = GetComponent<BoxCollider>();
         m_currentHealth = m_startingHealth;
         m_currentShield = m_startingShield;
-	}
+        m_enemyDeathExplosion = GetComponent<EnemyDeathEffect>();
+
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -50,7 +55,7 @@ public class EnemyHealth : MonoBehaviour
     /// Enemy takes damage for damageAmount; if health drops below zero, death event is called
     /// </summary>
     /// <param name="i_damageAmount"></param>
-    public void TakeDamage (int i_damageAmount)
+    public void TakeDamage (int i_damageAmount, Rigidbody i_playerRb = null)
     {
         if (isDead)
             return;
@@ -63,7 +68,15 @@ public class EnemyHealth : MonoBehaviour
             isDead = true;
             isSinking = true;
             m_boxCollider.isTrigger = true;
+            m_enemyDeathExplosion.EnemyDeathExplosion();
             m_onDeathEvent(this);
+        }
+        else
+        {
+            if (i_playerRb != null)
+            {
+                i_playerRb.AddForce(-gameObject.transform.forward * m_repulsiveForceWhenDamaged, ForceMode.Impulse);
+            }
         }
     }
 
@@ -79,12 +92,21 @@ public class EnemyHealth : MonoBehaviour
         m_currentShield -= i_damageAmount;
         m_shieldBar.value = m_currentShield;
 
+        if (m_isBomberman)
+        {
+            TakeDamage(i_damageAmount);
+        }
+
         if (m_currentShield <= 0)
         {
+            // TODO just change the color instead of swapping material!
             MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
-            Material newMaterial = new Material(Shader.Find("Specular"));
+            Material newMaterial = new Material(Shader.Find("Legacy Shaders/VertexLit"));
             newMaterial.color = Color.green;
             meshRenderer.material = newMaterial;
+
+            // make so that the shield now becomes a damageable part
+            tag = "Enemy";
         }
     }
 }

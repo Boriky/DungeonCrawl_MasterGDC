@@ -22,7 +22,7 @@ public class EnemyDamage : MonoBehaviour
     {
         GameObject hit = col.gameObject;
 
-        if ("Player" == hit.tag)
+        if ("Player" == hit.tag && tag != "Enemy")
         {
             PlayerHealth playerHealth = hit.GetComponent<PlayerHealth>();
             if (playerHealth != null)

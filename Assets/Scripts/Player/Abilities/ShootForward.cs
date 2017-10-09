@@ -58,25 +58,25 @@ public class ShootForward : Ability
     {
         Vector3 movementDirection = new Vector3(xAxis, 0, zAxis);
 
-        float zOffset = 0.0f;
-        float xOffset = 0.0f;
+        float zOffset = 1.0f;
+        float xOffset = 1.0f;
 
         if (zAxis > 0)
         {
-            zOffset = 2;
+            zOffset = -1;
         }
         else if (zAxis < 0)
         {
-            zOffset = -2;
+            zOffset = 1;
         }
 
         if (xAxis > 0)
         {
-            xOffset = 2;
+            xOffset = -1;
         }
         else if (xAxis < 0) 
         {
-            xOffset = -2;
+            xOffset = 1;
         }
 
         Vector3 spawnLocation = new Vector3(transform.position.x + xOffset, transform.position.y, transform.position.z + zOffset);
@@ -86,7 +86,7 @@ public class ShootForward : Ability
         projTransform.parent = GameObject.Find("Room(Clone)").transform;
 
         Rigidbody projRb = projInstance.GetComponent<Rigidbody>();
-        projRb.velocity = movementDirection * m_bulletVelocity;
+        projRb.velocity = -movementDirection * m_bulletVelocity;
 
         Explosion explosion = projInstance.GetComponent<Explosion>();
         StartCoroutine(explosion.TimedExplosion(projInstance));

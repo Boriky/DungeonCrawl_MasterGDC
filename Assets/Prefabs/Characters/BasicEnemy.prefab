@@ -63,6 +63,8 @@ GameObject:
   - component: {fileID: 114585095182678762}
   - component: {fileID: 54212587457988842}
   - component: {fileID: 195160458861823008}
+  - component: {fileID: 114185679970747932}
+  - component: {fileID: 114988987592349934}
   m_Layer: 0
   m_Name: BasicEnemy
   m_TagString: Shield
@@ -113,8 +115,9 @@ GameObject:
   - component: {fileID: 33642966040980424}
   - component: {fileID: 65526824594315626}
   - component: {fileID: 23315270467534986}
+  - component: {fileID: 54264149383914404}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Arm2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -197,8 +200,9 @@ GameObject:
   - component: {fileID: 33530984847432700}
   - component: {fileID: 65813147082701016}
   - component: {fileID: 23114784293415018}
+  - component: {fileID: 54990111915365834}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Arm1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -446,6 +450,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!54 &54264149383914404
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1596317841193734}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54990111915365834
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1994818601294428}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &65388048024997844
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -505,6 +539,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23cce6e82e5fd4440801cca46ab42749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114185679970747932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241461989511854}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 751b52c9fdfd0b5489ee15c3fc459bdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114294968950882018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -538,8 +583,11 @@ MonoBehaviour:
   m_currentShield: 0
   m_sinkSpeed: 2.5
   m_scoreValue: 10
+  m_repulsiveForceWhenDamaged: 8
+  m_isBomberman: 0
   m_healthBar: {fileID: 114880871402873134}
   m_shieldBar: {fileID: 114511184874919808}
+  isDead: 0
 --- !u!114 &114511184874919808
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -734,6 +782,24 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114988987592349934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241461989511854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3160d491fd01b1c47933d7bffe8f142f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_enemyParts:
+  - {fileID: 1598345123762538}
+  - {fileID: 1994818601294428}
+  - {fileID: 1596317841193734}
+  m_force: 10
+  m_radius: 5
+  m_upwardsModifier: 2
 --- !u!195 &195160458861823008
 NavMeshAgent:
   m_ObjectHideFlags: 1

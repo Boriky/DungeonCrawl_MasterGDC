@@ -37,8 +37,9 @@ GameObject:
   - component: {fileID: 33228917409102824}
   - component: {fileID: 65425563339310734}
   - component: {fileID: 23522788670630642}
+  - component: {fileID: 54231770399840312}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Arm2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,6 +61,7 @@ GameObject:
   - component: {fileID: 114980885833248042}
   - component: {fileID: 54466935861027284}
   - component: {fileID: 195219356058517370}
+  - component: {fileID: 114417797991144318}
   m_Layer: 0
   m_Name: ShieldedEnemy
   m_TagString: Shield
@@ -169,7 +171,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1873501351597972
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -177,9 +179,10 @@ GameObject:
   - component: {fileID: 4432980012318406}
   - component: {fileID: 33916888181506406}
   - component: {fileID: 23321652232984778}
+  - component: {fileID: 64600115830023932}
   m_Layer: 0
   m_Name: Pyramid001 (1)
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -214,8 +217,9 @@ GameObject:
   - component: {fileID: 33140672025758310}
   - component: {fileID: 65505638622577200}
   - component: {fileID: 23710994239606862}
+  - component: {fileID: 54047762937840914}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Arm1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -232,7 +236,7 @@ Transform:
   m_LocalScale: {x: 0.19999999, y: 0.5, z: 0.19999999}
   m_Children: []
   m_Father: {fileID: 4770817005542142}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -10, y: 0, z: 0}
 --- !u!4 &4064261126472816
 Transform:
@@ -245,7 +249,7 @@ Transform:
   m_LocalScale: {x: 0.2, y: 0.5, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4770817005542142}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -10, y: 0, z: 0}
 --- !u!4 &4294144754173386
 Transform:
@@ -256,10 +260,9 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.718, z: 0}
   m_LocalScale: {x: 0.8, y: 0.35135564, z: 0.8}
-  m_Children:
-  - {fileID: 4432980012318406}
+  m_Children: []
   m_Father: {fileID: 4770817005542142}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4432980012318406
 Transform:
@@ -268,10 +271,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1873501351597972}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.46599925, z: 0}
-  m_LocalScale: {x: 2.668966, y: 2.4685054, z: 1.2926311}
+  m_LocalPosition: {x: 0, y: 0.88173103, z: 0}
+  m_LocalScale: {x: 2.1351728, y: 1.9748052, z: 0.45417348}
   m_Children: []
-  m_Father: {fileID: 4294144754173386}
+  m_Father: {fileID: 4770817005542142}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!4 &4770817005542142
@@ -284,6 +287,7 @@ Transform:
   m_LocalPosition: {x: 3.017, y: 9.2, z: -31.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4432980012318406}
   - {fileID: 4294144754173386}
   - {fileID: 224014436105115648}
   - {fileID: 4064261126472816}
@@ -486,6 +490,36 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1873501351597972}
   m_Mesh: {fileID: 4300018, guid: a529728f06f07284fb48f1172b6a1664, type: 3}
+--- !u!54 &54047762937840914
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1995882123003834}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54231770399840312
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1116194051680344}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!54 &54466935861027284
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -516,6 +550,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &64600115830023932
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1873501351597972}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300018, guid: a529728f06f07284fb48f1172b6a1664, type: 3}
 --- !u!65 &65317072792230322
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -593,8 +641,11 @@ MonoBehaviour:
   m_currentShield: 0
   m_sinkSpeed: 2.5
   m_scoreValue: 10
+  m_repulsiveForceWhenDamaged: 5
+  m_isBomberman: 0
   m_healthBar: {fileID: 114874340692799344}
   m_shieldBar: {fileID: 114477211998158678}
+  isDead: 0
 --- !u!114 &114367283078653104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -643,6 +694,24 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114417797991144318
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1126855168449296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3160d491fd01b1c47933d7bffe8f142f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_enemyParts:
+  - {fileID: 1615203847015434}
+  - {fileID: 1995882123003834}
+  - {fileID: 1116194051680344}
+  m_force: 10
+  m_radius: 5
+  m_upwardsModifier: 2
 --- !u!114 &114477211998158678
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -870,7 +939,7 @@ RectTransform:
   - {fileID: 224303077038043920}
   - {fileID: 224515144681877246}
   m_Father: {fileID: 4770817005542142}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

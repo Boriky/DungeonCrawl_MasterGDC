@@ -17,6 +17,11 @@ public class Explosion : MonoBehaviour
     [SerializeField] ParticleSystem m_explosionGFX;
     [SerializeField] AudioSource m_explosionSFX;
 
+    public void ExecuteTimedExplosionCoroutine(GameObject i_projectile)
+    {
+        StartCoroutine(TimedExplosion(i_projectile));
+    }
+
     /// <summary>
     ///  Coroutine that generates an explosion at the projectile position, after a presetted timer, dealing damage to in range shields
     /// </summary>
@@ -43,6 +48,12 @@ public class Explosion : MonoBehaviour
             if (enemyHealth != null)
             {
                 enemyHealth.DamageShield(m_damage);
+            }
+
+            PlayerHealth playerHealth = hit.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(m_damage / 2);
             }
         }
 
