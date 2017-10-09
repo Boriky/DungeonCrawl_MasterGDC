@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RollOver : Ability
 {
@@ -15,6 +16,9 @@ public class RollOver : Ability
 
     [Header("Object References")]
     [SerializeField] Light m_playerChargeLight = null;
+
+    [Header("UI References")]
+    [SerializeField] Image m_spriteDirectionIndicator = null;
 
     private Rigidbody m_playerRb = null;
     private GameManager m_gameManager = null;
@@ -33,6 +37,7 @@ public class RollOver : Ability
     private void Start()
     {
         m_playerChargeLight = GameObject.Find("PlayerChargeLight").GetComponent<Light>();
+        m_spriteDirectionIndicator = GameObject.Find("ArrowIndicator").GetComponent<Image>();
     }
 	
 	// Update is called once per frame
@@ -56,6 +61,8 @@ public class RollOver : Ability
 
         if (m_roolOverActivated)
         {
+            m_spriteDirectionIndicator.enabled = true;
+
             m_playerRb.velocity = Vector3.zero;
             m_playerChargeLight.enabled = true;
             m_playerChargeLight.intensity += m_lightIntensityPerFrame;
@@ -66,6 +73,8 @@ public class RollOver : Ability
         }
         else if (m_playerChargeLight.isActiveAndEnabled)
         {
+            m_spriteDirectionIndicator.enabled = false;
+
             m_playerChargeLight.intensity -= m_lightIntensityPerFrame;
             if (m_playerChargeLight.intensity < m_defaultLightIntensity)
             {
@@ -73,6 +82,8 @@ public class RollOver : Ability
                 m_playerChargeLight.enabled = false;
             }
         }
+
+        RotateSpriteDirectionIndicator();
     }
 
     public void PerformRollOver()
@@ -86,13 +97,24 @@ public class RollOver : Ability
         StartCoroutine(ExecutedRollOver());
     }
 
+    private void RotateSpriteDirectionIndicator()
+    {
+        m_spriteDirectionIndicator.transform.parent.position = transform.position;
+
+        Vector3 movementDirection = new Vector3(-xAxis, 0, -zAxis);
+        Vector3 spriteDirectionForward = m_spriteDirectionIndicator.transform.parent.forward;
+        float step = 10.0f * Time.deltaTime;
+        Vector3 newDirection = Vector3.RotateTowards(spriteDirectionForward, movementDirection, step, 0.0f);
+        m_spriteDirectionIndicator.transform.parent.rotation = Quaternion.LookRotation(newDirection.normalized);
+    }
+
     IEnumerator ExecutedRollOver()
     {
         yield return new WaitForSeconds(m_rollOverDelay);
         //m_playerRb.isKinematic = false;
         m_roolOverActivated = false;
         Vector3 movementDirection = new Vector3(xAxis, 0, zAxis);
-        m_playerRb.AddForce(movementDirection * m_force, ForceMode.VelocityChange);
+        m_playerRb.AddForce(movementDirection.normalized * m_force, ForceMode.VelocityChange);
     }
 
     IEnumerator CooldownExecution()
