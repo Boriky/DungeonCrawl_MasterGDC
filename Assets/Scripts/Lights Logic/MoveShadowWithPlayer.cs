@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveShadowWithPlayer : MonoBehaviour {
-
+public class MoveShadowWithPlayer : MonoBehaviour
+{
     private GameObject m_playerInstance = null;
     private float m_offsetFromPlayer = 5.0f;
 

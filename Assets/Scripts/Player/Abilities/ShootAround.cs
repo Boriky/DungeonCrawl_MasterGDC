@@ -46,7 +46,8 @@ public class ShootAround : Ability
             projTransform.parent = GameObject.Find("Room(Clone)").transform;
 
             Rigidbody projRb = projTransform.GetComponent<Rigidbody>();
-            projRb.velocity = projRb.transform.forward * m_bulletVelocity;
+            projRb.AddForce(projRb.transform.up * m_bulletVelocity / 3.0f, ForceMode.Impulse);
+            projRb.AddForce(projRb.transform.forward * m_bulletVelocity, ForceMode.Impulse);
 
             Explosion explosion = projInstance.GetComponent<Explosion>();
             StartCoroutine(explosion.TimedExplosion(projInstance));

@@ -5,9 +5,9 @@ PhysicMaterial:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Bounce
+  m_Name: BombBounce
   dynamicFriction: 0.6
   staticFriction: 0.6
-  bounciness: 0.2
+  bounciness: 0.5
   frictionCombine: 0
   bounceCombine: 3

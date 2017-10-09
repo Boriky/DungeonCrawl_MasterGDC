@@ -2298,6 +2298,16 @@ Prefab:
       value: 
       objectReference: {fileID: 1873301602566498, guid: 5a76f56f1c6277240895644bf2fcf264,
         type: 2}
+    - target: {fileID: 114939932088075126, guid: 710ebce93b78fe04a859a7e3cb47d21b,
+        type: 2}
+      propertyPath: m_defaultPlayerLightSpotAngle
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 114939932088075126, guid: 710ebce93b78fe04a859a7e3cb47d21b,
+        type: 2}
+      propertyPath: m_levelCompleted
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 710ebce93b78fe04a859a7e3cb47d21b, type: 2}
   m_IsPrefabParent: 0
