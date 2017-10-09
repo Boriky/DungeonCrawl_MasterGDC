@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour
         Vector3 playerPosition = new Vector3(m_roomInstance.transform.position.x, m_roomInstance.transform.position.y + 3, m_roomInstance.transform.position.z);
         m_playerInstance = Instantiate(m_playerPrefab, playerPosition, Quaternion.identity);
         m_playerInstance.transform.parent = m_roomInstance.transform;
-        m_playerInstance.GetComponent<PlayerHealth>().m_onDeathEvent += onPlayerDeath;
+        m_playerInstance.GetComponent<PlayerHealth>().m_onDeathEvent += OnPlayerDeath;
     }
 
     /// <summary>
@@ -223,7 +223,7 @@ public class GameManager : MonoBehaviour
     /// Destroy the player and show the gameover results
     /// </summary>
     /// <param name="i_Listener"></param>
-    private void onPlayerDeath(PlayerHealth i_Listener)
+    private void OnPlayerDeath(PlayerHealth i_Listener)
     {
         if (i_Listener != null)
         {

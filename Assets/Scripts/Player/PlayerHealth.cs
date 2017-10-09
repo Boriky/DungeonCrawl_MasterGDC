@@ -105,6 +105,9 @@ public class PlayerHealth : MonoBehaviour
         m_onDeathEvent(this);
     }
 
+    /// <summary>
+    /// Restore some of the player health when he enters inside the level's lights trigger
+    /// </summary>
     private void OnTriggerEnter(Collider col)
     {
         SlowlyDisableLight disableLight = col.GetComponent<SlowlyDisableLight>();

@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class SlowlyDisableLight : MonoBehaviour {
 
+    [Header("Gameplay values")]
+    [SerializeField] float m_fadeVelocity = 0.008f;
+
+    [Header("Utility values")]
     public bool m_deactivating = false;
-    public float m_fadeVelocity = 0.008f;
 
     private Light m_pointLight = null;
 
