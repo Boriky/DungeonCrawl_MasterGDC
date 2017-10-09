@@ -185,7 +185,7 @@ MonoBehaviour:
   m_projectile: {fileID: 1828929024661246, guid: fbf37e9aadb8baa42a8c750ee8bc47c2,
     type: 2}
   m_bulletVelocity: 15
-  m_keyboardControls: 1
+  m_keyboardControls: 0
   m_cooldown: 1.5
 --- !u!114 &114179921258223722
 MonoBehaviour:
@@ -246,8 +246,10 @@ MonoBehaviour:
   m_startingHealth: 100
   m_currentHealth: 0
   m_minSpotAngle: 5
+  m_maxSpotAngle: 30
   m_directLight: {fileID: 108830311931919464, guid: 016d47b426ff5db43b59fb4cd674eee7,
     type: 2}
+  m_healthRegeneration: 10
   m_flashSpeed: 5
   m_flashColor: {r: 1, g: 0, b: 0, a: 0.1}
   m_deathClip: {fileID: 0}
@@ -264,7 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_force: 50
   m_rollOverDelay: 0.6
-  m_keyboardControls: 1
+  m_keyboardControls: 0
   m_cooldown: 1.5
   m_lightIntensityPerFrame: 0.5
   m_maxLightIntensity: 100
@@ -311,8 +313,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e742d29dc4575114cad1d20040745b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_keyboardControls: 1
-  m_movementSpeed: 50
+  m_keyboardControls: 0
+  m_movementSpeed: 70
   m_maxVelocity: 10
 --- !u!135 &135487604241866038
 SphereCollider:
