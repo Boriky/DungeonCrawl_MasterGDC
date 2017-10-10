@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviour
     private void SetRoomPosition()
     {
         m_roomInstance.transform.parent = m_levelInstances[m_currentLevelIndex].transform;
-        m_roomInstance.transform.position = new Vector3(m_roomInstance.transform.position.x, m_groundLevel.transform.position.y + (22.0f * m_currentLevelIndex + 1), m_roomInstance.transform.position.z);
+        m_roomInstance.transform.position = new Vector3(m_roomInstance.transform.position.x, m_groundLevel.transform.position.y + (22.0f * /*m_currentLevelIndex + 1*/ 4), m_roomInstance.transform.position.z);
     }
 
     /// <summary>
@@ -207,13 +207,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void CreateNewLevel()
     {
-        m_mainCamera.transform.position = new Vector3(m_mainCamera.transform.position.x, m_mainCamera.transform.position.y - 22.0f, m_mainCamera.transform.position.z);
+        m_mainCamera.transform.position = new Vector3(m_mainCamera.transform.position.x, m_mainCamera.transform.position.y /*- 22.0f*/, m_mainCamera.transform.position.z);
         m_divineLight.enabled = false;
-        m_divineLight.transform.position = new Vector3(m_divineLight.transform.position.x, m_divineLight.transform.position.y - 22.0f, m_divineLight.transform.position.z);
+        m_divineLight.transform.position = new Vector3(m_divineLight.transform.position.x, m_divineLight.transform.position.y /*- 22.0f*/, m_divineLight.transform.position.z);
         m_playerInstance.transform.parent = null;
+        Destroy(m_roomInstance.gameObject);
         CreateProceduralRoom();
-        Destroy(m_levelInstances[m_currentLevelIndex]);
-        m_currentLevelIndex--;
+        // Destroy(m_levelInstances[m_currentLevelIndex]);
+        // m_currentLevelIndex--;
         SetRoomPosition();
         EnemiesSpawn();
         m_levelCompleted = false;
@@ -285,8 +286,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void StartLevelCompletedProcedure()
     {
-        if (m_currentLevelIndex != 0)
-        {
+        /*if (m_currentLevelIndex != 0)
+        {*/
             // generate new level
             CreateNewLevel();
             // set direct light to 0
@@ -312,11 +313,11 @@ public class GameManager : MonoBehaviour
             m_levelTrigger.enabled = false;
 
             m_levelCompleted = false;
-        }
+        /*}
         else
         {
             // game completed
-        }
+        }*/
     }
 
     /// <summary>

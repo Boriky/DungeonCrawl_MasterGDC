@@ -9,7 +9,7 @@ public class ScoreSystem : MonoBehaviour
     [SerializeField] float m_baseEnemyBonus = 15.0f;
     [SerializeField] float m_spikeEnemyBonus = 15.0f;
     [SerializeField] float m_bombsEnemyBonus = 15.0f;
-    [SerializeField]float m_playerHealthBonus = 15.0f;
+    [SerializeField] float m_playerHealthBonus = 15.0f;
     [SerializeField] float m_malusPerSecond = 15.0f;
 
     [Header("UI References")]
