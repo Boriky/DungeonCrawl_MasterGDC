@@ -1450,6 +1450,25 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1148371500}
+--- !u!1 &1178276901 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1538894695053522, guid: d9ede455852fa824ba59bd9111a29dec,
+    type: 2}
+  m_PrefabInternal: {fileID: 1479719427}
+--- !u!64 &1178276903
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1178276901}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300022, guid: a529728f06f07284fb48f1172b6a1664, type: 3}
 --- !u!1 &1315284627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1643,6 +1662,15 @@ Prefab:
     - target: {fileID: 4912359654475768, guid: d9ede455852fa824ba59bd9111a29dec, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23418698059180308, guid: d9ede455852fa824ba59bd9111a29dec,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538894695053522, guid: d9ede455852fa824ba59bd9111a29dec, type: 2}
+      propertyPath: m_Name
+      value: LightCone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d9ede455852fa824ba59bd9111a29dec, type: 2}
@@ -2407,7 +2435,7 @@ Prefab:
         type: 2}
       propertyPath: m_coneCollider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1178276903}
     - target: {fileID: 114939932088075126, guid: 710ebce93b78fe04a859a7e3cb47d21b,
         type: 2}
       propertyPath: m_levelTrigger
