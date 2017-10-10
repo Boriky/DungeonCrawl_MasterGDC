@@ -2773,7 +2773,7 @@ Prefab:
     - target: {fileID: 114939932088075126, guid: 710ebce93b78fe04a859a7e3cb47d21b,
         type: 2}
       propertyPath: m_enemyPrefabs.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4470152973456324, guid: 710ebce93b78fe04a859a7e3cb47d21b, type: 2}
       propertyPath: m_LocalPosition.x
@@ -2884,7 +2884,7 @@ Prefab:
     - target: {fileID: 114939932088075126, guid: 710ebce93b78fe04a859a7e3cb47d21b,
         type: 2}
       propertyPath: ENEMY_NUMBER
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114939932088075126, guid: 710ebce93b78fe04a859a7e3cb47d21b,
         type: 2}
@@ -2942,12 +2942,14 @@ Prefab:
         type: 2}
       propertyPath: m_enemyPrefabs.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1569081475289724, guid: 7692cddac191ec646b600abb6cee68fb,
+        type: 2}
     - target: {fileID: 114939932088075126, guid: 710ebce93b78fe04a859a7e3cb47d21b,
         type: 2}
       propertyPath: m_enemyPrefabs.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1126855168449296, guid: 70a7958613608014dbae63df8ba4a79b,
+        type: 2}
     - target: {fileID: 114939932088075126, guid: 710ebce93b78fe04a859a7e3cb47d21b,
         type: 2}
       propertyPath: m_enemyPrefabs.Array.data[0]
