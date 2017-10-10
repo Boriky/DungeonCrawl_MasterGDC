@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OnLightCrossed : MonoBehaviour {
+public class OnLightCrossed : MonoBehaviour
+{
+    [Header("Gameplay values")]
+    [SerializeField] float m_attractiveForce = 2.0f;
 
-    Transform m_divineLightPosition = null;
-    GameObject hit = null;
+    private Transform m_divineLightPosition = null;
+    private GameObject hit = null;
     public bool hasEntered = false;
 
     private void Update()
@@ -22,7 +25,7 @@ public class OnLightCrossed : MonoBehaviour {
             toGravityOriginFromPlayer *= accelerationDueToGravity * gameObject.GetComponent<Rigidbody>().mass * Time.deltaTime;*/
 
             //Apply our acceleration.
-            gameObject.GetComponent<Rigidbody>().AddForce(toGravityOriginFromPlayer * 4.0f, ForceMode.Acceleration);
+            gameObject.GetComponent<Rigidbody>().AddForce(toGravityOriginFromPlayer * m_attractiveForce, ForceMode.Force);
         }
 
     }
