@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SlowlyDisableLight : MonoBehaviour {
 
+    [Header("Object referece")]
+    [SerializeField] GameObject LightCone = null;
+
     [Header("Gameplay values")]
     [SerializeField] float m_fadeVelocity = 0.008f;
 
@@ -22,6 +25,7 @@ public class SlowlyDisableLight : MonoBehaviour {
     {
         if (m_deactivating)
         {
+            LightCone.SetActive(false);
             m_pointLight.intensity -= m_fadeVelocity; 
         }
     }
