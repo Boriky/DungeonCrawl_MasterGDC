@@ -32,11 +32,11 @@ public class RollOver : Ability
     {
         m_playerRb = GetComponent<Rigidbody>();
         m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        m_playerChargeLight = GameObject.Find("PlayerChargeLight").GetComponent<Light>();
     }
 
     private void Start()
     {
-        m_playerChargeLight = GameObject.Find("PlayerChargeLight").GetComponent<Light>();
         m_spriteDirectionIndicator = GameObject.Find("ArrowIndicator").GetComponent<Image>();
     }
 	

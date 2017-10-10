@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [Header("Enemies settings")]
     [SerializeField] int ENEMY_NUMBER = 5;
     [SerializeField] GameObject[] m_enemyPrefabs = null;
+    [SerializeField] int m_increseDifficulty = 2;
 
     [Header("Levels settings")]
     [SerializeField] GameObject[] m_levelPrefabs = null;
@@ -157,8 +158,6 @@ public class GameManager : MonoBehaviour
     private void SpawnCharacters()
     {
         PlayerSpawn();
-
-        m_enemies = new Enemy[ENEMY_NUMBER];
         EnemiesSpawn();
     }
 
@@ -178,8 +177,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void EnemiesSpawn()
     {
+        m_enemies = new Enemy[ENEMY_NUMBER];
         m_numberOfActiveEnemies = ENEMY_NUMBER;
-        for (int enemyIndex = 0; enemyIndex < m_enemies.Length; ++enemyIndex)
+        for (int enemyIndex = 0; enemyIndex < m_numberOfActiveEnemies; ++enemyIndex)
         {
             Enemy enemy = Instantiate(m_enemyPrefabs[Random.Range(0, m_enemyPrefabs.Length)]).GetComponent<Enemy>();
             Vector3 position = m_roomInstance.getSpawningPosition();
@@ -219,6 +219,7 @@ public class GameManager : MonoBehaviour
         // Destroy(m_levelInstances[m_currentLevelIndex]);
         // m_currentLevelIndex--;
         SetRoomPosition();
+        ENEMY_NUMBER += m_increseDifficulty;
         EnemiesSpawn();
         m_levelCompleted = false;
     }

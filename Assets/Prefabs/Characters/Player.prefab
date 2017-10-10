@@ -185,8 +185,8 @@ MonoBehaviour:
   m_projectile: {fileID: 1828929024661246, guid: fbf37e9aadb8baa42a8c750ee8bc47c2,
     type: 2}
   m_bulletVelocity: 15
-  m_keyboardControls: 1
-  m_cooldown: 1.5
+  m_keyboardControls: 0
+  m_cooldown: 3
 --- !u!114 &114179921258223722
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_projectile: {fileID: 1828929024661246, guid: fbf37e9aadb8baa42a8c750ee8bc47c2,
     type: 2}
   m_bulletVelocity: 10
-  m_cooldown: 2
+  m_cooldown: 8
   bulletsPositions:
   - {x: 0.5, y: 1.5, z: 0}
   - {x: -0.5, y: 1.5, z: 0}
@@ -265,9 +265,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0359e4a392fd1654796511c0884ace9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_force: 50
+  m_force: 65
   m_rollOverDelay: 0.8
-  m_keyboardControls: 1
+  m_keyboardControls: 0
   m_cooldown: 5
   m_lightIntensityPerFrame: 0.4
   m_maxLightIntensity: 100
@@ -303,7 +303,7 @@ MonoBehaviour:
   m_forceAnticipation: 15
   m_smashDownDelay: 0.3
   m_rayLenght: 0.6
-  m_cooldown: 1.5
+  m_cooldown: 2
 --- !u!114 &114999735355072746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e742d29dc4575114cad1d20040745b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_keyboardControls: 1
+  m_keyboardControls: 0
   m_movementSpeed: 70
   m_maxVelocity: 10
 --- !u!135 &135487604241866038
