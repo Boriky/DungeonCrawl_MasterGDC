@@ -249,7 +249,8 @@ MonoBehaviour:
   m_minSpotAngle: 5
   m_maxSpotAngle: 30
   m_directLight: {fileID: 0}
-  m_healthRegeneration: 10
+  m_healthRegeneration: 33
+  m_takeDamageForceReaction: 15
   m_flashSpeed: 5
   m_flashColor: {r: 1, g: 0, b: 0, a: 0.1}
   m_deathClip: {fileID: 0}

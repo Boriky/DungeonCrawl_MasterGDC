@@ -54,7 +54,7 @@ public class BombermanExplosion : MonoBehaviour
             PlayerHealth playerHealth = hit.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
-                playerHealth.TakeDamage(m_damage);
+                playerHealth.TakeDamage(m_damage, Vector3.zero);
             }
         }
 

@@ -27,7 +27,7 @@ public class EnemyDamage : MonoBehaviour
             PlayerHealth playerHealth = hit.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
-                playerHealth.TakeDamage(m_damagePerHit);
+                playerHealth.TakeDamage(m_damagePerHit, col.contacts[0].point);
             }
         }
     }

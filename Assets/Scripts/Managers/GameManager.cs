@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] BoxCollider m_levelTrigger = null;
 
     [Header("UI references")]
+    [SerializeField] GameObject m_HUDPanel = null;
+    [SerializeField] GameObject m_gameOverPanel = null;
     [SerializeField] Slider m_playerHealthBar = null;
     public Button m_abilityButton1 = null;
     public Button m_abilityButton2 = null;
@@ -43,7 +46,7 @@ public class GameManager : MonoBehaviour
     private GameObject m_playerInstance = null;
     private Enemy[] m_enemies = null;
     private GameObject[] m_levelInstances = null;
-    private ScoreSystem m_scoreSystem = null;
+    public ScoreSystem m_scoreSystem = null;
     private AIManager m_aiManager = null;
 
     private bool m_enemiesInitialized = false;
@@ -223,11 +226,15 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Destroy the player and show the gameover results
     /// </summary>
-    /// <param name="i_Listener"></param>
-    private void OnPlayerDeath(PlayerHealth i_Listener)
+    /// <param name="i_listener"></param>
+    private void OnPlayerDeath(PlayerHealth i_listener)
     {
-        if (i_Listener != null)
+        if (i_listener != null)
         {
+            Destroy(i_listener.gameObject);
+            m_HUDPanel.SetActive(false);
+            m_gameOverPanel.SetActive(true);
+            m_scoreSystem.CalculateFinalScore();
             // Destroy GameObject
                 // Particles etc
             // GameOver
@@ -236,14 +243,19 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Destroy the enemy and update the number of currently active enemies
+    /// Destroy the enemy, apply a score bonus based on the enemy type and update the number of currently active enemies
     /// </summary>
-    /// <param name="i_Listener"></param>
-    private void OnEnemyDeath(EnemyHealth i_Listener)
+    /// <param name="i_listener"></param>
+    private void OnEnemyDeath(EnemyHealth i_listener, int i_enemyID)
     {
-        if (i_Listener != null)
+        /*Enemy enemyInstance = i_Listener.transform.parent.GetComponent<Enemy>();
+        int enemyId = enemyInstance.m_enemyID;*/
+
+        m_scoreSystem.ApplyEnemyBonus(i_enemyID);
+
+        if (i_listener != null)
         {
-            Destroy(i_Listener.gameObject);
+            Destroy(i_listener.gameObject);
             m_numberOfActiveEnemies--;
         }
     }
@@ -326,5 +338,21 @@ public class GameManager : MonoBehaviour
     public Slider GetPlayerHealthBar()
     {
         return m_playerHealthBar;
+    }
+
+    /// <summary>
+    /// Force restart of the current scene
+    /// </summary>
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    /// <summary>
+    /// For playtesting when enemies get stuck...
+    /// </summary>
+    public void ForceLevelCompleted()
+    {
+        m_levelCompleted = true;
     }
 }

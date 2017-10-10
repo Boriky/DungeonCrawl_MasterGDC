@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public delegate void OnDeathDelegate(EnemyHealth i_Listener);
-public delegate void OnLifeChangedDelegate(float i_Prev, float i_New);
+public delegate void OnDeathDelegate(EnemyHealth i_listener, int i_enemyID);
+public delegate void OnLifeChangedDelegate(float i_prev, float i_new);
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -30,6 +30,7 @@ public class EnemyHealth : MonoBehaviour
     public bool isDead = false;
     private bool isSinking = false;
     private EnemyDeathEffect m_enemyDeathExplosion = null;
+    private int m_enemyID;
 
 	// Use this for initialization
 	void Awake ()
@@ -39,7 +40,7 @@ public class EnemyHealth : MonoBehaviour
         m_currentHealth = m_startingHealth;
         m_currentShield = m_startingShield;
         m_enemyDeathExplosion = GetComponent<EnemyDeathEffect>();
-
+        m_enemyID = GetComponent<Enemy>().m_enemyID;
     }
 	
 	// Update is called once per frame
@@ -69,7 +70,7 @@ public class EnemyHealth : MonoBehaviour
             isSinking = true;
             m_boxCollider.isTrigger = true;
             m_enemyDeathExplosion.EnemyDeathExplosion();
-            m_onDeathEvent(this);
+            m_onDeathEvent(this, m_enemyID);
         }
         else
         {

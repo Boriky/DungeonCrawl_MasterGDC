@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour {
-    
+public class Enemy : MonoBehaviour
+{
+    [Header("Gameplay values")]
+    public int m_enemyID = 0;
+
     //private float yOffset = 0.8f;
 
     public void Initialize(Vector3 position, Transform levelTransform)

@@ -53,7 +53,7 @@ public class Explosion : MonoBehaviour
             PlayerHealth playerHealth = hit.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
-                playerHealth.TakeDamage(m_damage / 2);
+                playerHealth.TakeDamage(m_damage / 2, Vector3.zero);
             }
         }
 

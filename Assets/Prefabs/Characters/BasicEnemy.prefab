@@ -647,6 +647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af58bdd42472fb849a9e246044c76ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_enemyID: 0
 --- !u!114 &114832715450324790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -679,7 +680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f586c3e78a2ace40bd2059f6fc59329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_damagePerHit: 10
+  m_damagePerHit: 33
 --- !u!114 &114854215395830632
 MonoBehaviour:
   m_ObjectHideFlags: 1

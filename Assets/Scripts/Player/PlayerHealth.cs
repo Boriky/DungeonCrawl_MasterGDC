@@ -14,6 +14,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] float m_maxSpotAngle = 30.0f;
     [SerializeField] Light m_directLight = null;
     [SerializeField] int m_healthRegeneration = 10;
+    [SerializeField] float m_takeDamageForceReaction = 5.0f;
 
     [Header("Damage indicators")]
     [SerializeField] float m_flashSpeed = 5f;
@@ -69,7 +70,7 @@ public class PlayerHealth : MonoBehaviour
     /// Player takes damage for damageAmount; if health drops below zero, death event is called
     /// </summary>
     /// <param name="i_damageAmount"></param>
-    public void TakeDamage (int i_damageAmount)
+    public void TakeDamage (int i_damageAmount, Vector3 i_contactPoint)
     {
         if (m_isDamageable)
         {
@@ -80,12 +81,18 @@ public class PlayerHealth : MonoBehaviour
 
             if (m_directLight.spotAngle > m_minSpotAngle)
             {
-                m_directLight.spotAngle -= i_damageAmount / 2;
+                m_directLight.spotAngle -= (m_maxSpotAngle / m_startingHealth) * i_damageAmount;
             }
 
             if (m_currentHealth <= 0 && !m_isDead)
             {
                 Death();
+            }
+
+            if (i_contactPoint != Vector3.zero)
+            {
+                Vector3 direction = transform.position - i_contactPoint;
+                GetComponent<Rigidbody>().AddForce(m_takeDamageForceReaction * direction.normalized, ForceMode.Impulse);
             }
         }
     }
@@ -97,8 +104,8 @@ public class PlayerHealth : MonoBehaviour
     {
         m_isDead = true;
 
-        m_playerAudio.clip = m_deathClip;
-        m_playerAudio.Play();
+        // m_playerAudio.clip = m_deathClip;
+        // m_playerAudio.Play();
 
         m_rigidBody.isKinematic = true;
 
@@ -106,7 +113,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
     /// <summary>
-    /// Restore some of the player health when he enters inside the level's lights trigger
+    /// Restore some of the player health when he enters inside the level's lights trigger and apply a malus to the score
     /// </summary>
     private void OnTriggerEnter(Collider col)
     {
@@ -120,11 +127,13 @@ public class PlayerHealth : MonoBehaviour
             }
             m_healthBar.value = m_currentHealth;
 
-            m_directLight.spotAngle += m_healthRegeneration / 2;
+            m_directLight.spotAngle += (m_maxSpotAngle / m_startingHealth) * m_healthRegeneration;
             if (m_directLight.spotAngle > m_maxSpotAngle)
             {
                 m_directLight.spotAngle = m_maxSpotAngle;
             }
+
+            m_gameManager.m_scoreSystem.ApplyHealthRegenerationMalus();
 
             disableLight.m_deactivating = true;
         }
