@@ -97,8 +97,8 @@ Rigidbody:
   m_GameObject: {fileID: 1873301602566498}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 0.5
+  m_AngularDrag: 0.5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -221,8 +221,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e742d29dc4575114cad1d20040745b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_keyboardControls: 1
-  m_movementSpeed: 50
+  m_keyboardControls: 0
+  m_movementSpeed: 15
+  m_maxVelocity: 10
 --- !u!135 &135487604241866038
 SphereCollider:
   m_ObjectHideFlags: 1

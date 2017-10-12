@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     private GameObject m_playerInstance = null;
     private Enemy[] m_enemies = null;
     private GameObject[] m_levelInstances = null;
+    private ScoreSystem m_scoreSystem = null;
     private bool m_enemiesInitialized = false;
     public bool m_levelCompleted = false;     // TODO set to private
     private int m_numberOfActiveEnemies = 0;
@@ -51,8 +52,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         m_aiManager = new AIManager();
+        m_scoreSystem = GetComponent<ScoreSystem>();
         InitializeSkillBarAbilities();
-        
+
+        m_scoreSystem.SetGameAsActive(true);
     }
 
     private void Update()
@@ -60,7 +63,14 @@ public class GameManager : MonoBehaviour
         m_aiManager.MoveEnemies(m_enemies, m_playerInstance.transform.position);
         if (m_levelCompleted)
         {
-            CreateNewLevel();
+            if (m_currentLevelIndex!=0)
+            {
+                CreateNewLevel();
+            }
+            else
+            {
+                // game completed
+            }
         }
 
         if (m_numberOfActiveEnemies == 0)
@@ -107,7 +117,7 @@ public class GameManager : MonoBehaviour
 
     private void SetRoomPosition()
     {
-        //m_roomInstance.transform.parent = m_levelInstances[m_currentLevelIndex].transform;
+        m_roomInstance.transform.parent = m_levelInstances[m_currentLevelIndex].transform;
         m_roomInstance.transform.position = new Vector3(m_roomInstance.transform.position.x, m_groundLevel.transform.position.y + (22.0f * m_currentLevelIndex + 1), m_roomInstance.transform.position.z);
     }
 

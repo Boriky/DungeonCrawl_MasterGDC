@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     bool m_keyboardControls = true;
     [SerializeField]
     float m_movementSpeed = 5.0f;
+    [SerializeField]
+    float m_maxVelocity = 10.0f;
 
     private Camera m_mainCamera = null;
     private Rigidbody m_playerRb;
@@ -18,10 +20,11 @@ public class PlayerController : MonoBehaviour
     {
         m_mainCamera = Camera.main;
         m_playerRb = GetComponent<Rigidbody>();
+        m_playerRb.maxAngularVelocity = 100;
     }
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
         float moveOnXAxis;
         float moveOnZAxis;
@@ -34,10 +37,14 @@ public class PlayerController : MonoBehaviour
         else
         {
             moveOnXAxis = (Input.acceleration.x /*- m_zStart*/);
-            moveOnZAxis = (Input.acceleration.z /*- m_xStart*/);
+            moveOnZAxis = (Input.acceleration.y /*- m_xStart*/);
         }
-        Vector3 direction = new Vector3(moveOnXAxis, 0.0f, moveOnZAxis);
-        Vector3 rotated = m_mainCamera.transform.rotation * direction;
-        m_playerRb.AddForce(rotated * m_movementSpeed, ForceMode.Force);
+        Vector3 direction = new Vector3(moveOnZAxis, 0.0f, -moveOnXAxis);
+        Quaternion cameraOrientation = new Quaternion(0.0f, m_mainCamera.transform.rotation.y, 0.0f, m_mainCamera.transform.rotation.w);
+        Vector3 rotated = cameraOrientation * direction;
+        if (m_playerRb.velocity.magnitude < m_maxVelocity)
+        {
+            m_playerRb.AddTorque(rotated * m_movementSpeed, ForceMode.Force);
+        }
     }
 }
