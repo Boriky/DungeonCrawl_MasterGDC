@@ -40,6 +40,7 @@ public class Room : MonoBehaviour
         {
             DoNextGenerationStep(activeComponents);
         }
+        GetComponent<NavMeshSurface>().BuildNavMesh();
     }
     private void DoFirstGenerationStep(IntVector2 startPositionForGeneration, Directions.Direction doorPreviousDirection, List<RoomComponent> activeComponents)
     {
@@ -100,7 +101,7 @@ public class Room : MonoBehaviour
             currentComponent.AddNeighbour(null, direction);
 
         }
-        GetComponent<NavMeshSurface>().BuildNavMesh();
+        
 
     }
     private void Update()
