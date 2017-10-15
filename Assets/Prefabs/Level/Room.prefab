@@ -72,8 +72,13 @@ MonoBehaviour:
     z: 5
   roomComponentPrefabs:
   - {fileID: 114205699658667340, guid: 043e92fe5f6546f4ea90da7ea2d69e21, type: 2}
-  - {fileID: 114266708418448450, guid: 76b35adc6fff1294ca5edccdb3bff2c4, type: 2}
-  - {fileID: 114790194098304698, guid: 7fc347d87b222cd41bd5614209e4cb47, type: 2}
+  - {fileID: 114205699658667340, guid: 043e92fe5f6546f4ea90da7ea2d69e21, type: 2}
+  - {fileID: 114477592606314872, guid: 864c52ceb4f2ec84392740ec9e88fcff, type: 2}
+  - {fileID: 114897233342451030, guid: a6d412963a39a004da4631e2b295dfa0, type: 2}
+  - {fileID: 114693510071529318, guid: d965dada3baf057469d35f9fefa193c4, type: 2}
+  - {fileID: 114134476553348864, guid: b0162ba73a994f840ba4c848bcfab42d, type: 2}
+  - {fileID: 114906476696225478, guid: 5b1d44cd1685d6f47b2290cc2b01e0fb, type: 2}
+  - {fileID: 114549190193555140, guid: 71df98129e337ca4994401f3d4989d92, type: 2}
 --- !u!114 &114883121393193832
 MonoBehaviour:
   m_ObjectHideFlags: 1
