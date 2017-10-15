@@ -185,7 +185,7 @@ MonoBehaviour:
   m_projectile: {fileID: 1828929024661246, guid: fbf37e9aadb8baa42a8c750ee8bc47c2,
     type: 2}
   m_bulletVelocity: 15
-  m_keyboardControls: 1
+  m_keyboardControls: 0
   m_cooldown: 3
 --- !u!114 &114179921258223722
 MonoBehaviour:
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_force: 65
   m_rollOverDelay: 0.8
-  m_keyboardControls: 1
+  m_keyboardControls: 0
   m_cooldown: 5
   m_lightIntensityPerFrame: 0.4
   m_maxLightIntensity: 100
