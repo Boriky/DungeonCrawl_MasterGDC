@@ -141,7 +141,7 @@ Light:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1630349446552370}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0.31617647, g: 0.37748462, b: 1, a: 1}
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_keyboardControls: 1
-  m_movementSpeed: 70
+  m_movementSpeed: 50
   m_maxVelocity: 10
 --- !u!135 &135487604241866038
 SphereCollider:
