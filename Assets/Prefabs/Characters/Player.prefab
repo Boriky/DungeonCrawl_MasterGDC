@@ -182,10 +182,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2182f07603d68be4884a26369cfcf0b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_projectile: {fileID: 1828929024661246, guid: fbf37e9aadb8baa42a8c750ee8bc47c2,
+  m_projectile: {fileID: 1828929024661246, guid: 99f165cc9b7d5074aa9a045b5867afd4,
     type: 2}
   m_bulletVelocity: 15
-  m_keyboardControls: 0
+  m_keyboardControls: 1
   m_cooldown: 3
 --- !u!114 &114179921258223722
 MonoBehaviour:
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 977cd2113f57dcc41a09bdf32e1c25b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_projectile: {fileID: 1828929024661246, guid: fbf37e9aadb8baa42a8c750ee8bc47c2,
+  m_projectile: {fileID: 1828929024661246, guid: 99f165cc9b7d5074aa9a045b5867afd4,
     type: 2}
   m_bulletVelocity: 10
   m_cooldown: 8
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_force: 65
   m_rollOverDelay: 0.8
-  m_keyboardControls: 0
+  m_keyboardControls: 1
   m_cooldown: 5
   m_lightIntensityPerFrame: 0.4
   m_maxLightIntensity: 100

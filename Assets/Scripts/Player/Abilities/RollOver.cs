@@ -31,13 +31,13 @@ public class RollOver : Ability
     void Awake ()
     {
         m_playerRb = GetComponent<Rigidbody>();
-        m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        m_playerChargeLight = GameObject.Find("PlayerChargeLight").GetComponent<Light>();
+        m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();   
     }
 
     private void Start()
     {
         m_spriteDirectionIndicator = GameObject.Find("ArrowIndicator").GetComponent<Image>();
+        m_playerChargeLight = GameObject.Find("PlayerChargeLight").GetComponent<Light>();
     }
 	
 	// Update is called once per frame

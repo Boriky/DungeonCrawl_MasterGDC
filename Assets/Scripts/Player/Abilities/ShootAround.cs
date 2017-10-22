@@ -50,7 +50,7 @@ public class ShootAround : Ability
             projRb.AddForce(projRb.transform.forward * m_bulletVelocity, ForceMode.Impulse);
 
             Explosion explosion = projInstance.GetComponent<Explosion>();
-            StartCoroutine(explosion.TimedExplosion(projInstance));
+            explosion.ExecuteTimedExplosionCoroutine(projInstance);
 
             m_gameManager.m_abilityButton4.interactable = false;
             StartCoroutine(CooldownExecution());

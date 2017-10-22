@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 23697296042699304}
   - component: {fileID: 54056675511124294}
   m_Layer: 0
-  m_Name: TopCollider
+  m_Name: DamageableHead
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -341,7 +341,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: d6544becc4192c44d8c8d3a7c6b1f7a9, type: 2}
+  - {fileID: 2100000, guid: f9bbdd59c8fde8e4ab3fb680ab1b3315, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
