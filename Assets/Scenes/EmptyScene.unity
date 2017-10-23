@@ -370,6 +370,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraSpeed: 20
+  m_offset: {x: 0, y: 0, z: 0}
+  m_spotlight: {fileID: 0}
 --- !u!1001 &280706287
 Prefab:
   m_ObjectHideFlags: 0
