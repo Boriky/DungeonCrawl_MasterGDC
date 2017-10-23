@@ -16,8 +16,30 @@ public class EnemyDeathEffect : MonoBehaviour
     [SerializeField]
     float m_upwardsModifier = 2.0f;
 
+    [Header("Effects")]
+    [SerializeField]
+    ParticleSystem m_explosionGFX = null;
+
+    private ParticleSystem m_particlesRef = null;
+
+    private void Start()
+    {
+        m_explosionGFX = GameObject.Find("EnemyDeath").GetComponent<ParticleSystem>();
+    }
+
+    private void Update()
+    {
+        if (m_particlesRef != null && !m_particlesRef.isPlaying)
+        {
+            Destroy(m_particlesRef.gameObject);
+        }
+    }
+
     public void EnemyDeathExplosion()
     {
+        m_particlesRef = Instantiate(m_explosionGFX, transform.position, Quaternion.identity);
+        m_particlesRef.Play();
+
             Vector3 explosionPos = transform.position;
 
             for (int index = 0; index < m_enemyParts.Length; ++index)
@@ -32,7 +54,7 @@ public class EnemyDeathEffect : MonoBehaviour
                 Explosion bombExplosion = bodyPart.GetComponent<Explosion>();
                 if (bombExplosion != null)
                 {
-                    bombExplosion.ExecuteTimedExplosionCoroutine(bodyPart);
+                    bombExplosion.ExecuteTimedExplosionCoroutine(bodyPart, null, 0);
                 }
             }
     }

@@ -17,12 +17,27 @@ public class Explosion : MonoBehaviour
     [SerializeField] ParticleSystem m_explosionGFX;
     [SerializeField] AudioSource m_explosionSFX;
 
-    private bool isMineActivated = false;
     private Rigidbody m_rigidBody = null;
+    ParticleSystem[] m_particles = new ParticleSystem[8];
 
-    public void ExecuteTimedExplosionCoroutine(GameObject i_projectile)
+    ParticleSystem m_particlesRef = null;
+
+    private void Start()
     {
-        StartCoroutine(TimedExplosion(i_projectile));
+        m_explosionGFX = GameObject.Find("ProjectileExplosion").GetComponent<ParticleSystem>();
+    }
+
+    private void Update()
+    {
+        if (m_particlesRef != null && !m_particlesRef.isPlaying)
+        {
+            Destroy(m_particlesRef.gameObject);
+        }
+    }
+
+    public void ExecuteTimedExplosionCoroutine(GameObject i_projectile, ShootAround i_shootAbility, int ENEMY = -1)
+    {
+        StartCoroutine(TimedExplosion(i_projectile, i_shootAbility, ENEMY));
     }
 
     /// <summary>
@@ -30,12 +45,15 @@ public class Explosion : MonoBehaviour
     /// </summary>
     /// <param name="i_projectile"></param>
     /// <returns></returns>
-    public IEnumerator TimedExplosion(GameObject i_projectile)
+    public IEnumerator TimedExplosion(GameObject i_projectile, ShootAround i_shootAbility, int ENEMY = -1)
     {
         yield return new WaitForSeconds(m_timer);
 
         Vector3 explosionPos = i_projectile.transform.position;
         Collider[] colliders = Physics.OverlapSphere(explosionPos, m_radius);
+
+        m_particlesRef = Instantiate(m_explosionGFX, transform.position, Quaternion.identity);
+        m_particlesRef.Play();
 
         foreach (Collider hit in colliders)
         {
@@ -60,6 +78,15 @@ public class Explosion : MonoBehaviour
             }
         }
 
-        Destroy(i_projectile);
+        if (i_shootAbility != null)
+        {
+            i_shootAbility.ResetBulletsAndStartAnimation();
+            StartCoroutine(i_shootAbility.CooldownExecution());
+        }
+
+        if (ENEMY != -1)
+        {
+            Destroy(i_projectile);
+        }
     }
 }

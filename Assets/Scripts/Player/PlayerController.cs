@@ -40,11 +40,12 @@ public class PlayerController : MonoBehaviour
             moveOnZAxis = (Input.acceleration.y /*- m_xStart*/);
         }
         Vector3 direction = new Vector3(moveOnZAxis, 0.0f, -moveOnXAxis);
-        Quaternion cameraOrientation = new Quaternion(0.0f, m_mainCamera.transform.rotation.y, 0.0f, m_mainCamera.transform.rotation.w);
+        Quaternion cameraOrientation = m_mainCamera.transform.rotation;
         Vector3 rotated = cameraOrientation * direction.normalized;
+        Vector3 rotatedProj = Vector3.ProjectOnPlane(rotated, Vector3.up);
         if (m_playerRb.velocity.magnitude < m_maxVelocity)
         {
-            m_playerRb.AddTorque(rotated.normalized * m_movementSpeed, ForceMode.Force);
+            m_playerRb.AddTorque(rotatedProj.normalized * m_movementSpeed, ForceMode.Force);
         }
     }
 }

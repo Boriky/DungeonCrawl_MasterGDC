@@ -211,10 +211,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 977cd2113f57dcc41a09bdf32e1c25b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_projectile: {fileID: 1828929024661246, guid: 99f165cc9b7d5074aa9a045b5867afd4,
-    type: 2}
+  m_projectile: {fileID: 0}
   m_bulletVelocity: 10
-  m_cooldown: 8
+  m_cooldown: 3
   bulletsPositions:
   - {x: 0.5, y: 1.5, z: 0}
   - {x: -0.5, y: 1.5, z: 0}
@@ -225,14 +224,14 @@ MonoBehaviour:
   - {x: 0.5, y: 1.5, z: 0.5}
   - {x: 0.5, y: 1.5, z: -0.5}
   bulletsYRotations:
-  - 90
-  - -90
-  - 0
-  - 180
-  - -45
-  - -135
-  - 45
-  - 135
+  - {x: NaN, y: 0, z: 3.8679698, w: 1e-45}
+  - {x: NaN, y: 0, z: 3.8679698, w: 1e-45}
+  - {x: NaN, y: 0, z: 3.8679698, w: 1e-45}
+  - {x: NaN, y: 0, z: 3.8679698, w: 1e-45}
+  - {x: NaN, y: 0, z: 3.8679698, w: 1e-45}
+  - {x: NaN, y: 0, z: 3.8679698, w: 1e-45}
+  - {x: NaN, y: 0, z: 3.8679698, w: 1e-45}
+  - {x: NaN, y: 0, z: 3.8679698, w: 1e-45}
 --- !u!114 &114344043720253090
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -268,7 +267,7 @@ MonoBehaviour:
   m_force: 65
   m_rollOverDelay: 0.8
   m_keyboardControls: 1
-  m_cooldown: 5
+  m_cooldown: 2
   m_lightIntensityPerFrame: 0.4
   m_maxLightIntensity: 100
   m_defaultLightIntensity: 1
@@ -285,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2c42a3e379bc34988409a2a3583119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_damagePerHit: 50
+  m_damagePerHit: 100
   m_playerVelocityThreshold: 10
 --- !u!114 &114970501551421252
 MonoBehaviour:
@@ -303,7 +302,7 @@ MonoBehaviour:
   m_forceAnticipation: 15
   m_smashDownDelay: 0.3
   m_rayLenght: 0.6
-  m_cooldown: 2
+  m_cooldown: 1.5
 --- !u!114 &114999735355072746
 MonoBehaviour:
   m_ObjectHideFlags: 1

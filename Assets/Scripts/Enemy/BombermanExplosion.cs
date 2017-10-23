@@ -14,13 +14,26 @@ public class BombermanExplosion : MonoBehaviour
     [SerializeField]
     float m_upwardsModifier = 2.0f;
 
+    [Header("Effects")]
+    [SerializeField]
+    ParticleSystem m_explosionGFX = null;
+
     private SphereCollider m_explosionTrigger = null;
+    ParticleSystem m_explosionParticleRef = null;
 
     private void Start()
     {
         m_explosionTrigger = GetComponent<SphereCollider>();
+        m_explosionGFX = GameObject.Find("BombermanExplosion").GetComponent<ParticleSystem>();
     }
 
+    void Update()
+    {
+        if (m_explosionParticleRef != null && !m_explosionParticleRef.isPlaying)
+        {
+            Destroy(m_explosionParticleRef.gameObject);
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -32,6 +45,9 @@ public class BombermanExplosion : MonoBehaviour
 
     private void ActivateSelfDestruction()
     {
+        m_explosionParticleRef = Instantiate(m_explosionGFX, transform.position, Quaternion.identity);
+        m_explosionParticleRef.Play();
+
         Vector3 explosionPos = transform.position;
         Collider[] colliders = Physics.OverlapSphere(explosionPos, m_explosionTrigger.radius);
 

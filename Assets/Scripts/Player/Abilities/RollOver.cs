@@ -102,9 +102,14 @@ public class RollOver : Ability
         m_spriteDirectionIndicator.transform.parent.position = transform.position;
 
         Vector3 movementDirection = new Vector3(-xAxis, 0, -zAxis);
+
+        Quaternion cameraOrientation = Camera.main.transform.rotation;
+        Vector3 rotated = cameraOrientation * movementDirection.normalized;
+        Vector3 rotatedProj = Vector3.ProjectOnPlane(rotated, Vector3.up);
+
         Vector3 spriteDirectionForward = m_spriteDirectionIndicator.transform.parent.forward;
         float step = 10.0f * Time.deltaTime;
-        Vector3 newDirection = Vector3.RotateTowards(spriteDirectionForward, movementDirection, step, 0.0f);
+        Vector3 newDirection = Vector3.RotateTowards(spriteDirectionForward, rotatedProj.normalized, step, 0.0f);
         m_spriteDirectionIndicator.transform.parent.rotation = Quaternion.LookRotation(newDirection.normalized);
     }
 
@@ -114,7 +119,12 @@ public class RollOver : Ability
         //m_playerRb.isKinematic = false;
         m_roolOverActivated = false;
         Vector3 movementDirection = new Vector3(xAxis, 0, zAxis);
-        m_playerRb.AddForce(movementDirection.normalized * m_force, ForceMode.VelocityChange);
+
+        Quaternion cameraOrientation = Camera.main.transform.rotation;
+        Vector3 rotated = cameraOrientation * movementDirection.normalized;
+        Vector3 rotatedProj = Vector3.ProjectOnPlane(rotated, Vector3.up);
+
+        m_playerRb.AddForce(rotatedProj.normalized * m_force, ForceMode.VelocityChange);
     }
 
     IEnumerator CooldownExecution()

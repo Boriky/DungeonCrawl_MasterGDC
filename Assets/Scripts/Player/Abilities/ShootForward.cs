@@ -89,7 +89,7 @@ public class ShootForward : Ability
         projRb.velocity = -movementDirection * m_bulletVelocity;
 
         Explosion explosion = projInstance.GetComponent<Explosion>();
-        explosion.ExecuteTimedExplosionCoroutine(projInstance);
+        explosion.ExecuteTimedExplosionCoroutine(projInstance, null);
 
         m_gameManager.m_abilityButton3.interactable = false;
         StartCoroutine(CooldownExecution());

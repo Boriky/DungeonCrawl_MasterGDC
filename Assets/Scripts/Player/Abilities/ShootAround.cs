@@ -13,16 +13,31 @@ public class ShootAround : Ability
 
     [Header("Starting Positions")]
     [SerializeField] Vector3[] bulletsPositions;
-    [SerializeField] float[] bulletsYRotations;
+    [SerializeField] Quaternion[] bulletsYRotations;
 
     private int m_numberOfBullets;
     private GameManager m_gameManager = null;
+    private Transform[] m_projectilesInstances = null;
+    private Animator m_projectileAnimator = null;
 
     // Use this for initialization
     void Awake ()
     {
-        m_numberOfBullets = bulletsPositions.Length;
         m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
+    private void Start()
+    {
+        m_projectile = GameObject.Find("Projectiles");
+        m_projectileAnimator = m_projectile.GetComponent<Animator>();
+
+        m_numberOfBullets = m_projectile.transform.childCount;
+
+        m_projectilesInstances = new Transform[m_numberOfBullets];
+        for (int index = 0; index < m_numberOfBullets; ++index)
+        {
+            m_projectilesInstances[index] = m_projectile.transform.GetChild(index);
+        }
     }
 	
 	// Update is called once per frame
@@ -31,7 +46,7 @@ public class ShootAround : Ability
 	    if (Input.GetKeyDown(KeyCode.R))
         {
             FireProjectiles();
-        }	
+        }
 	}
 
     /// <summary>
@@ -41,25 +56,56 @@ public class ShootAround : Ability
     {
         for (int index = 0; index < m_numberOfBullets; ++index)
         {
-            GameObject projInstance = Instantiate(m_projectile, transform.position + bulletsPositions[index], Quaternion.Euler(Vector3.up * bulletsYRotations[index]));
-            Transform projTransform = projInstance.transform;
-            projTransform.parent = GameObject.Find("Room(Clone)").transform;
+            GameObject projInstance = m_projectilesInstances[index].gameObject;
 
-            Rigidbody projRb = projTransform.GetComponent<Rigidbody>();
-            projRb.AddForce(projRb.transform.up * m_bulletVelocity / 3.0f, ForceMode.Impulse);
-            projRb.AddForce(projRb.transform.forward * m_bulletVelocity, ForceMode.Impulse);
+            projInstance.GetComponent<SphereCollider>().isTrigger = false;
+            bulletsPositions[index] = projInstance.transform.localPosition;
+            bulletsYRotations[index] = projInstance.transform.localRotation;
+            projInstance.transform.parent = transform.root;
+
+            Rigidbody projRb = projInstance.GetComponent<Rigidbody>();
+            projRb.isKinematic = false;
+            projRb.AddForce(projInstance.transform.up * m_bulletVelocity / 3.0f, ForceMode.Impulse);
+            projRb.AddForce(projInstance.transform.forward * m_bulletVelocity, ForceMode.Impulse);
 
             Explosion explosion = projInstance.GetComponent<Explosion>();
-            explosion.ExecuteTimedExplosionCoroutine(projInstance);
+            if (index == m_numberOfBullets - 1)
+            {
+                explosion.ExecuteTimedExplosionCoroutine(projInstance, this);
 
+            }
+            else
+            {
+                explosion.ExecuteTimedExplosionCoroutine(projInstance, null);
+            }
+ 
             m_gameManager.m_abilityButton4.interactable = false;
-            StartCoroutine(CooldownExecution());
-        } 
+            //StartCoroutine(CooldownExecution());
+        }
+        m_projectile.transform.localScale = new Vector3(0.0f,0.0f,0.0f);
     }
 
-    IEnumerator CooldownExecution()
+    public IEnumerator CooldownExecution()
     {
         yield return new WaitForSeconds(m_cooldown);
+
+        m_projectileAnimator.SetBool("CDActive", false);
         m_gameManager.m_abilityButton4.interactable = true;
+    }
+
+    public void ResetBulletsAndStartAnimation()
+    {
+        m_projectileAnimator.SetBool("CDActive", true);
+
+        for (int index = 0; index < m_projectilesInstances.Length; ++index)
+        {
+            Transform projInstance = m_projectilesInstances[index];
+            projInstance.gameObject.GetComponent<SphereCollider>().isTrigger = true;
+            projInstance.parent = m_projectile.transform;
+            projInstance.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            projInstance.localPosition = bulletsPositions[index];
+            projInstance.localRotation = bulletsYRotations[index];
+        }
+
     }
 }
