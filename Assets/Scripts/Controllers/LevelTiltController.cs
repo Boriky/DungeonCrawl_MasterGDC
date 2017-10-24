@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// OLD CONTROLLER, DEPRECATED
+
 public class LevelTiltController : MonoBehaviour
 {
     [Header("Gameplay values")]

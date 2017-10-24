@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Base enemy class. Stores the enemy ID expressed by a simple int
 public class Enemy : MonoBehaviour
 {
     [Header("Gameplay values")]
@@ -9,6 +10,9 @@ public class Enemy : MonoBehaviour
 
     //private float yOffset = 0.8f;
 
+    /// <summary>
+    /// Setup the enemy spawn position
+    /// </summary>
     public void Initialize(Vector3 position, Transform levelTransform)
     {
         float yOffset = this.GetComponent<BoxCollider>().bounds.size.y/2;

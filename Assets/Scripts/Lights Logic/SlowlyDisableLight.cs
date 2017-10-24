@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlowlyDisableLight : MonoBehaviour {
-
+// The Light associated to this component slowly fades off
+public class SlowlyDisableLight : MonoBehaviour
+{
     [Header("Object referece")]
     [SerializeField] GameObject LightCone = null;
 
@@ -20,7 +21,6 @@ public class SlowlyDisableLight : MonoBehaviour {
         m_pointLight = GetComponent<Light>();
     }
 	
-	// Update is called once per frame
 	void Update ()
     {
         if (m_deactivating)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Check if the player is inside the divine light spawned once the level has been cleared by all the enemies
 public class OnLightCrossed : MonoBehaviour
 {
     [Header("Gameplay values")]
@@ -18,21 +19,20 @@ public class OnLightCrossed : MonoBehaviour
             Vector3 gravityOrigin = m_divineLightPosition.position;
 
             Vector3 toGravityOriginFromPlayer = gravityOrigin - gameObject.transform.position;
-            //toGravityOriginFromPlayer.Normalize();
+            toGravityOriginFromPlayer.Normalize();
 
-            // Multiply vector so that the magnitude is equal to the force we wish to apply
-            /*float accelerationDueToGravity = 9.8f;
-            toGravityOriginFromPlayer *= accelerationDueToGravity * gameObject.GetComponent<Rigidbody>().mass * Time.deltaTime;*/
-
-            //Apply our acceleration.
+            // Apply acceleration to the player towards the "gravity center"
             gameObject.GetComponent<Rigidbody>().AddForce(toGravityOriginFromPlayer * m_attractiveForce, ForceMode.Force);
         }
 
     }
 
-    private void OnTriggerEnter(Collider other)
+    /// <summary>
+    /// Check if the player is inside the light's cone trigger
+    /// </summary>
+    private void OnTriggerEnter(Collider trigger)
     {
-        hit = other.gameObject;
+        hit = trigger.gameObject;
 
         if ("LevelTrigger" == hit.tag)
         {
@@ -41,10 +41,15 @@ public class OnLightCrossed : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /// <summary>
+    /// When the player collides with the "new level generation" collider, lock him
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnCollisionEnter(Collision col)
     {
-        if (collision.gameObject.tag == "LevelTrigger2")
+        if (col.gameObject.tag == "LevelTrigger2")
         {
-            GetComponent<Rigidbody>().isKinematic = true;       }
+            GetComponent<Rigidbody>().isKinematic = true;
+        }
     }
 }

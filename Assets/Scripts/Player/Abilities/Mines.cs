@@ -5,24 +5,17 @@ using UnityEngine;
 public class Mines : MonoBehaviour
 {
     [Header("Gameplay Values")]
-    [SerializeField]
-    int m_damage = 20;
-    [SerializeField]
-    float m_timer = 3.0f;
+    [SerializeField] int m_damage = 20;
+    [SerializeField] float m_timer = 3.0f;
 
     [Header("Explosion Parameters")]
-    [SerializeField]
-    float m_force = 1.0f;
-    [SerializeField]
-    float m_radius = 1.0f;
-    [SerializeField]
-    float m_upwardsModifier = 2.0f;
+    [SerializeField] float m_force = 1.0f;
+    [SerializeField] float m_radius = 1.0f;
+    [SerializeField] float m_upwardsModifier = 2.0f;
 
     [Header("Explosion Effects")]
-    [SerializeField]
-    ParticleSystem m_explosionGFX;
-    [SerializeField]
-    AudioSource m_explosionSFX;
+    [SerializeField] ParticleSystem m_explosionGFX;
+    [SerializeField] AudioSource m_explosionSFX;
 
     private bool isMineActivated = false;
     private Rigidbody m_rigidBody = null;

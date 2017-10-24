@@ -17,12 +17,6 @@ public class ScoreSystem : MonoBehaviour
     private float m_score;
     private float m_time;
     private bool m_isGameActive = false;
-
-	// Use this for initialization
-	void Start ()
-    {
-		
-	}
 	
 	// Update is called once per frame
 	void Update ()

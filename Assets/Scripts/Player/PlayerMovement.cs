@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// OLD BEHAVIOUR, DEPRECATED
+
 public class PlayerMovement : MonoBehaviour
 {
-    //[Header("Movement Modifiers")]
-    //public int speed = 0;
-
     [Header("Jump Behaviours")]
     [SerializeField] float m_force = 5f;
     [SerializeField] float m_rayLenght = 0.6f;

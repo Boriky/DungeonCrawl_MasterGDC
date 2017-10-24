@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class Floating : MonoBehaviour
 {
-    [SerializeField]
-    float m_scaleFactor = 0.0f;
-    [SerializeField]
-    float m_runningTime = 0.0f;
-    [SerializeField]
-    bool m_isRotating = false;
+    [SerializeField] float m_scaleFactor = 0.0f;
+    [SerializeField] float m_runningTime = 0.0f;
+    [SerializeField] bool m_isRotating = false;
 
     // Update is called once per frame
     void Update ()

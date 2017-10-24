@@ -80,31 +80,3 @@ public class Jump : Ability
     }
 
 }
-
-
-// Update is called once per frame
-/*void FixedUpdate()
-{
-    // Stores everything the raycast is hitting
-    RaycastHit hit;
-    // Check if the raycast intersects with anything in its lenght
-    if (Physics.Raycast(transform.position, s_rayDirection, out hit, m_rayLenght))
-    {
-        m_isSmashJumpReady = false;
-        // Check if the raycast is hitting the floor and execute the jump command
-        if (hit.collider.tag == "Floor" && Input.GetKeyDown(KeyCode.Space))
-        {
-            m_playerRb.AddForce(Vector3.up * m_force, ForceMode.Impulse);
-            m_isSmashJumpReady = true;
-        }
-    }
-    else
-    {
-        // Double jump: after the first jump the player can jump again and perform a smash down towards the enemy
-        if (m_isSmashJumpReady && Input.GetKeyDown(KeyCode.Space))
-        {
-            m_playerRb.velocity = Vector3.zero;
-            m_playerRb.AddForce(Vector3.down * m_force2, ForceMode.Impulse);
-        }
-    }
-}*/

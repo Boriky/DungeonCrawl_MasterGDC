@@ -89,7 +89,6 @@ public class RollOver : Ability
     public void PerformRollOver()
     {
         m_roolOverActivated = true;
-        //m_playerRb.isKinematic = true;
         m_playerRb.velocity = Vector3.zero;
         m_gameManager.m_abilityButton2.interactable = false;
         StartCoroutine(CooldownExecution());

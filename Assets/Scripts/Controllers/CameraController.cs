@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] float cameraSpeed = 20.0f;
-    [SerializeField] Vector3 m_offset = Vector3.zero;
+    [Header("Gameplay values")]
+    [SerializeField] Vector3 m_offsetFromPlayer = Vector3.zero;
     [SerializeField] Transform m_spotlight = null;
 
     private GameObject m_player;
@@ -18,21 +18,14 @@ public class CameraController : MonoBehaviour
     // Called after the position of the player has been processed during the Update
     void LateUpdate()
     {
-        m_spotlight.LookAt(m_player.transform);
-        transform.localPosition = new Vector3(m_player.transform.localPosition.x + m_offset.x, transform.localPosition.y, m_player.transform.localPosition.z + m_offset.z);
-
-        /*
-        transform.LookAt(m_player.transform);
-
-        if (Input.GetKey(KeyCode.L))
+        // Lock the camera spotlight to the player position
+        if (m_player!= null)
         {
-            transform.RotateAround(m_player.transform.position, -Vector3.up, cameraSpeed * Time.deltaTime);
-        }
+            m_spotlight.LookAt(m_player.transform);
 
-        if (Input.GetKey(KeyCode.J))
-        {
-            transform.RotateAround(m_player.transform.position, Vector3.up, cameraSpeed * Time.deltaTime);
+            // Given an offset, lock the camera x and z position on the player
+            Vector3 lockedCameraPosition = new Vector3(m_player.transform.localPosition.x + m_offsetFromPlayer.x, transform.localPosition.y, m_player.transform.localPosition.z + m_offsetFromPlayer.z);
+            transform.localPosition = lockedCameraPosition;
         }
-        */
     }
 }

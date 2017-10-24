@@ -5,12 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Gameplay values")]
-    [SerializeField]
-    bool m_keyboardControls = true;
-    [SerializeField]
-    float m_movementSpeed = 5.0f;
-    [SerializeField]
-    float m_maxVelocity = 10.0f;
+    [SerializeField] bool m_keyboardControls = true;
+    [SerializeField] float m_movementSpeed = 5.0f;
+    [SerializeField] float m_maxVelocity = 10.0f;
 
     private Camera m_mainCamera = null;
     private Rigidbody m_playerRb;
