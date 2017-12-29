@@ -29,6 +29,8 @@ public class EnemyHealth : MonoBehaviour
     private EnemyDeathEffect m_enemyDeathExplosion = null;
     private int m_enemyID;
 
+    private AudioSource m_enemySFX;
+
 	void Awake ()
     {
         m_boxCollider = GetComponent<BoxCollider>();
@@ -36,6 +38,7 @@ public class EnemyHealth : MonoBehaviour
         m_currentShield = m_startingShield;
         m_enemyDeathExplosion = GetComponent<EnemyDeathEffect>();
         m_enemyID = GetComponent<Enemy>().m_enemyID;
+        m_enemySFX = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -54,6 +57,7 @@ public class EnemyHealth : MonoBehaviour
         
         if(m_currentHealth <= 0)
         {
+            m_enemySFX.Play();
             isDead = true;
             m_boxCollider.isTrigger = true;
             m_enemyDeathExplosion.EnemyDeathExplosion();

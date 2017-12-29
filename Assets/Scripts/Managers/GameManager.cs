@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     [Header("UI references")]
     [SerializeField] GameObject m_HUDPanel = null;
     [SerializeField] GameObject m_gameOverPanel = null;
+    [SerializeField] GameObject m_gameLoadingPanel = null;
     [SerializeField] Slider m_playerHealthBar = null;
     public Button m_abilityButton1 = null;
     public Button m_abilityButton2 = null;
@@ -94,12 +95,14 @@ public class GameManager : MonoBehaviour
 
         if (playerIsKinematic)
         {
+            m_gameLoadingPanel.SetActive(true);
             MaximizeGlobalIlluminationAndSetLevelCompleted();
         }
 
         if (m_levelCompleted)
         {
             StartLevelCompletedProcedure();
+            m_gameLoadingPanel.SetActive(false);
         }
     }
 

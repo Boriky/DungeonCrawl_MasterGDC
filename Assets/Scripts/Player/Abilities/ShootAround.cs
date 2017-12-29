@@ -19,11 +19,13 @@ public class ShootAround : Ability
     private GameManager m_gameManager = null;
     private Transform[] m_projectilesInstances = null;
     private Animator m_projectileAnimator = null;
+    private AudioSource[] m_playerSFXs = null;
 
     // Use this for initialization
     void Awake ()
     {
         m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        m_playerSFXs = GetComponents<AudioSource>();
     }
 
     private void Start()
@@ -54,6 +56,7 @@ public class ShootAround : Ability
     /// </summary>
     public void FireProjectiles()
     {
+        m_playerSFXs[4].Play();
         for (int index = 0; index < m_numberOfBullets; ++index)
         {
             GameObject projInstance = m_projectilesInstances[index].gameObject;

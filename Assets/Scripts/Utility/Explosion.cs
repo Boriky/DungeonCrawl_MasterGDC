@@ -25,6 +25,7 @@ public class Explosion : MonoBehaviour
     private void Start()
     {
         m_explosionGFX = GameObject.Find("ProjectileExplosion").GetComponent<ParticleSystem>();
+        m_explosionSFX = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -54,6 +55,7 @@ public class Explosion : MonoBehaviour
 
         m_particlesRef = Instantiate(m_explosionGFX, transform.position, Quaternion.identity);
         m_particlesRef.Play();
+        m_explosionSFX.Play();
 
         foreach (Collider hit in colliders)
         {

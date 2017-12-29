@@ -17,11 +17,13 @@ public class Jump : Ability
     private static Vector3 s_rayDirection = Vector3.down;
     private bool m_isSmashJumpReady = false;
     private GameManager m_gameManager = null;
+    private AudioSource[] m_playerSFXs;
 
     void Awake()
     {
         m_playerRb = GetComponent<Rigidbody>();
         m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        m_playerSFXs = GetComponents<AudioSource>();
     }
 
     void FixedUpdate()
@@ -43,6 +45,7 @@ public class Jump : Ability
             // Check if the raycast is hitting the floor and execute the jump command
             if (hit.collider.tag == "Floor")
             {
+                m_playerSFXs[0].Play();
                 m_playerRb.AddForce(Vector3.up * m_force, ForceMode.Impulse);
                 m_isSmashJumpReady = true;
             }
@@ -52,6 +55,7 @@ public class Jump : Ability
             // Double jump: after the first jump the player can jump again and perform a smash down towards the enemy
             if (m_isSmashJumpReady)
             {
+                m_playerSFXs[1].Play();
                 m_playerRb.velocity = Vector3.zero;
                 m_playerRb.AddForce(Vector3.up * m_forceAnticipation, ForceMode.Impulse);
 

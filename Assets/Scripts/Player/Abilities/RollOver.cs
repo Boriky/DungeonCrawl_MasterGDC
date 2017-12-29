@@ -23,6 +23,7 @@ public class RollOver : Ability
     private Rigidbody m_playerRb = null;
     private GameManager m_gameManager = null;
     private bool m_roolOverActivated = false;
+    private AudioSource[] m_playerSFXs = null;
 
     float zAxis;
     float xAxis;
@@ -31,13 +32,14 @@ public class RollOver : Ability
     void Awake ()
     {
         m_playerRb = GetComponent<Rigidbody>();
-        m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();   
+        m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        m_playerSFXs = GetComponents<AudioSource>();
     }
 
     private void Start()
     {
         m_spriteDirectionIndicator = GameObject.Find("ArrowIndicator").GetComponent<Image>();
-        m_playerChargeLight = GameObject.Find("PlayerChargeLight").GetComponent<Light>();
+        m_playerChargeLight = GetComponentInChildren<Light>();
     }
 	
 	// Update is called once per frame
@@ -114,7 +116,9 @@ public class RollOver : Ability
 
     IEnumerator ExecutedRollOver()
     {
+        m_playerSFXs[2].Play();
         yield return new WaitForSeconds(m_rollOverDelay);
+        m_playerSFXs[3].Play();
         //m_playerRb.isKinematic = false;
         m_roolOverActivated = false;
         Vector3 movementDirection = new Vector3(xAxis, 0, zAxis);

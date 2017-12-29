@@ -20,8 +20,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] float m_flashSpeed = 5f;
     [SerializeField] Color m_flashColor = new Color(1f, 0f, 0f, 0.1f);
 
-    [Header("Death indicator")]
-    [SerializeField] AudioClip m_deathClip = null;
+    private AudioSource[] m_playerSFXs = null;
 
     // death delegate for game manager
     public OnPlayerDeathDelegate m_onDeathEvent = null;
@@ -46,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
         m_healthBar = m_gameManager.GetPlayerHealthBar();
         m_directLight = GameObject.Find("Spotlight").GetComponent<Light>();
         m_maxSpotAngle = m_directLight.spotAngle;
+        m_playerSFXs = GetComponents<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -74,6 +74,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (m_isDamageable)
         {
+            m_playerSFXs[5].Play();
             m_damaged = true;
 
             m_currentHealth -= i_damageAmount;

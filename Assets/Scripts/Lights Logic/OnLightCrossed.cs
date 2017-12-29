@@ -19,7 +19,7 @@ public class OnLightCrossed : MonoBehaviour
             Vector3 gravityOrigin = m_divineLightPosition.position;
 
             Vector3 toGravityOriginFromPlayer = gravityOrigin - gameObject.transform.position;
-            toGravityOriginFromPlayer.Normalize();
+            //toGravityOriginFromPlayer.Normalize();
 
             // Apply acceleration to the player towards the "gravity center"
             gameObject.GetComponent<Rigidbody>().AddForce(toGravityOriginFromPlayer * m_attractiveForce, ForceMode.Force);
