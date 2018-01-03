@@ -242,6 +242,7 @@ public class GameManager : MonoBehaviour
         {
             //Destroy(i_listener.gameObject);
             i_listener.gameObject.SetActive(false);
+            m_HUDPanel.SetActive(false);
             //m_HUDPanel.SetActive(false);
             m_gameOverPanel.SetActive(true);
             m_scoreSystem.CalculateFinalScore();

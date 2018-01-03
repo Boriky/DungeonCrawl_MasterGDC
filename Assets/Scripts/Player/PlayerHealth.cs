@@ -122,6 +122,7 @@ public class PlayerHealth : MonoBehaviour
         if (disableLight != null && !disableLight.m_deactivating)
         {
             m_currentHealth += m_healthRegeneration;
+            m_playerSFXs[6].Play();
             if (m_currentHealth > m_startingHealth)
             {
                 m_currentHealth = m_startingHealth;
