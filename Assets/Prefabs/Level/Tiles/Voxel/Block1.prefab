@@ -52,12 +52,12 @@ GameObject:
   - component: {fileID: 108955839106963432}
   - component: {fileID: 114096063442769820}
   m_Layer: 0
-  m_Name: Point light
+  m_Name: TILE_LIGHT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1182570536704334
 GameObject:
   m_ObjectHideFlags: 1

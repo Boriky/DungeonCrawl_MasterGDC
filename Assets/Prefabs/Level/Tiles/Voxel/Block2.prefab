@@ -420,12 +420,12 @@ GameObject:
   - component: {fileID: 108331455739473300}
   - component: {fileID: 114466364879770620}
   m_Layer: 0
-  m_Name: Point light
+  m_Name: TILE_LIGHT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1874375657868092
 GameObject:
   m_ObjectHideFlags: 1
@@ -1598,9 +1598,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1224a5dc856044cae36b2cfc201ab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_lowestEmission: 0
-  m_maxEmission: 0.5
-  m_intermittenceVelocity: 0.1
 --- !u!114 &114179266584556194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1626,9 +1623,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1224a5dc856044cae36b2cfc201ab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_lowestEmission: 0
-  m_maxEmission: 0.5
-  m_intermittenceVelocity: 0.1
 --- !u!114 &114280993578389806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1640,9 +1634,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1224a5dc856044cae36b2cfc201ab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_lowestEmission: 0
-  m_maxEmission: 0.5
-  m_intermittenceVelocity: 0.1
 --- !u!114 &114466364879770620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1668,9 +1659,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1224a5dc856044cae36b2cfc201ab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_lowestEmission: 0
-  m_maxEmission: 0.5
-  m_intermittenceVelocity: 0.1
 --- !u!114 &114549190193555140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1697,9 +1685,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1224a5dc856044cae36b2cfc201ab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_lowestEmission: 0
-  m_maxEmission: 0.5
-  m_intermittenceVelocity: 0.1
 --- !u!114 &114589219413443210
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -34,6 +34,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject m_gameOverPanel = null;
     [SerializeField] GameObject m_gameLoadingPanel = null;
     [SerializeField] Slider m_playerHealthBar = null;
+    [SerializeField] GameObject m_loadingTextRestart = null;
+    [SerializeField] GameObject m_restartButton = null;
+    [SerializeField] GameObject m_restartButtonBackground = null;
     public Button m_abilityButton1 = null;
     public Button m_abilityButton2 = null;
     public Button m_abilityButton3 = null;
@@ -93,7 +96,7 @@ public class GameManager : MonoBehaviour
             RiseGlobalDirectLightIntensity();
         }
 
-        if (playerIsKinematic)
+        if (playerIsKinematic && m_playerInstance.activeInHierarchy)
         {
             m_gameLoadingPanel.SetActive(true);
             MaximizeGlobalIlluminationAndSetLevelCompleted();
@@ -235,8 +238,9 @@ public class GameManager : MonoBehaviour
     {
         if (i_listener != null)
         {
-            Destroy(i_listener.gameObject);
-            m_HUDPanel.SetActive(false);
+            //Destroy(i_listener.gameObject);
+            i_listener.gameObject.SetActive(false);
+            //m_HUDPanel.SetActive(false);
             m_gameOverPanel.SetActive(true);
             m_scoreSystem.CalculateFinalScore();
             // Destroy GameObject
@@ -349,6 +353,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void RestartGame()
     {
+        m_restartButtonBackground.SetActive(false);
+        m_restartButton.SetActive(false);
+        m_loadingTextRestart.SetActive(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
