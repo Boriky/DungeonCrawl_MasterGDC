@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
         CreateProceduralRoom();
         SpawnLevels();
         SpawnCharacters();
+
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 
     // Use this for initialization
@@ -277,7 +279,7 @@ public class GameManager : MonoBehaviour
         m_globalDirectLight.intensity += 0.008f;
 
         m_divineLight.enabled = true;
-        m_divineLight.intensity += 0.03f;
+        m_divineLight.intensity += 0.01f;
 
         if (m_globalDirectLight.intensity > 0.7f)
         {
@@ -293,9 +295,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void MaximizeGlobalIlluminationAndSetLevelCompleted()
     {
-        m_globalDirectLight.intensity += 0.1f;
+        m_globalDirectLight.intensity += 0.35f;
 
-        if (m_globalDirectLight.intensity > 20)
+        if (m_globalDirectLight.intensity > 15)
         {
             m_levelCompleted = true;
         }
