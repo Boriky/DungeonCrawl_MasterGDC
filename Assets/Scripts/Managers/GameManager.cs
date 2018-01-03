@@ -369,4 +369,9 @@ public class GameManager : MonoBehaviour
     {
         m_levelCompleted = true;
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

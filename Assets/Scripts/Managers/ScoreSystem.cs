@@ -59,7 +59,7 @@ public class ScoreSystem : MonoBehaviour
     /// </summary>
     public void CalculateFinalScore()
     {
-        m_score += m_time * m_bonusPerSecond;
+        //m_score += m_time * m_bonusPerSecond;
         m_finalScoreText.text = Mathf.RoundToInt(m_score).ToString();
     }
 }
